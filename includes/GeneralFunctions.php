@@ -1,18 +1,20 @@
 <?php
 
 /**
- *  2Moons 
- *   by Jan-Otto Kröpke 2009-2016
+ *  Spacepunks
+ *   2moons by Jan-Otto Kröpke 2009-2016
+ *   Spacepunks by mimikri 2023
  *
  * For the full copyright and license information, please view the LICENSE
  *
- * @package 2Moons
- * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @package Spacepunks
+ * @author mimikri
  * @copyright 2009 Lucky
  * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
+ * @copyright 2023 mimikri
  * @licence MIT
- * @version 1.8.0
- * @link https://github.com/jkroepke/2Moons
+ * @version 0.0.1
+ * @link https://github.com/mimikri/spacepunks
  */
 
 function getFactors($USER, $Type = 'basic', $TIME = NULL) {
@@ -559,7 +561,7 @@ $output_error = '';
 			<b>URL: </b>'.PROTOCOL.HTTP_HOST.$_SERVER['REQUEST_URI'].'<br>
 			<b>PHP-Version: </b>'.PHP_VERSION.'<br>
 			<b>PHP-API: </b>'.php_sapi_name().'<br>
-			<b>2Moons Version: </b>'.$VERSION.'<br>
+			<b>spacepunks Version: </b>'.$VERSION.'<br>
 			<b>Debug Backtrace:</b><br>'.makebr(htmlspecialchars($exception->getTraceAsString())).'
 		</td>
 	</tr>

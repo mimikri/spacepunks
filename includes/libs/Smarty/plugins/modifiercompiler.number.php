@@ -6,7 +6,7 @@
  */
 
 /**
- * 2Moons number modifier plugin
+ * spacepunks number modifier plugin
  *
  * Type:     modifier<br>
  * Name:     number<br>

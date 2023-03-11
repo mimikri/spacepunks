@@ -1,16 +1,17 @@
 /**
- *  2Moons
+ *  spacepunks
  *   by Jan-Otto Kröpke 2009-2016
+ *   by mimikri 2023
  *
  * For the full copyright and license information, please view the LICENSE
  *
- * @package 2Moons
- * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @package spacepunks
+ * @author mimikri
  * @copyright 2009 Lucky
  * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
  * @licence MIT
- * @version 1.8.0
- * @link https://github.com/jkroepke/2Moons
+ *@version 0.0.1
+ * @link https://github.com/mimikri/spacepunks
  */
 
 
@@ -181,7 +182,7 @@ CREATE TABLE `%PREFIX%config` (
   `noobprotection` int(11) NOT NULL DEFAULT '0',
   `noobprotectiontime` int(11) NOT NULL DEFAULT '5000',
   `noobprotectionmulti` int(11) NOT NULL DEFAULT '5',
-  `forum_url` varchar(128) NOT NULL DEFAULT 'http://2moons.cc',
+  `forum_url` varchar(128) NOT NULL DEFAULT 'https://2moons.de',
   `adm_attack` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `debug` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `lang` varchar(2) NOT NULL DEFAULT '',
@@ -234,8 +235,8 @@ CREATE TABLE `%PREFIX%config` (
   `chat_allowdelmes` tinyint(1) NOT NULL DEFAULT '1',
   `chat_logmessage` tinyint(1) NOT NULL DEFAULT '1',
   `chat_nickchange` tinyint(1) NOT NULL DEFAULT '1',
-  `chat_botname` varchar(15) NOT NULL DEFAULT '2Moons',
-  `chat_channelname` varchar(15) NOT NULL DEFAULT '2Moons',
+  `chat_botname` varchar(15) NOT NULL DEFAULT 'spacepunks',
+  `chat_channelname` varchar(15) NOT NULL DEFAULT 'spacepunks',
   `chat_socket_active` tinyint(1) NOT NULL DEFAULT '0',
   `chat_socket_host` varchar(64) NOT NULL DEFAULT '',
   `chat_socket_ip` varchar(40) NOT NULL DEFAULT '',
@@ -926,7 +927,7 @@ CREATE TABLE `%PREFIX%vars_requriements` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `%PREFIX%config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`, `moduls`, `disclamerAddress`, `disclamerPhone`, `disclamerMail`, `disclamerNotice`) VALUES
-(1, '%VERSION%', '', '2Moons', '', '', '', '', '', '', '');
+(1, '%VERSION%', '', 'spacepunks', '', '', '', '', '', '', '');
 
 INSERT INTO `%PREFIX%cronjobs` (`cronjobID`, `name`, `isActive`, `min`, `hours`, `dom`, `month`, `dow`, `class`, `nextTime`, `lock`) VALUES
 (NULL, 'referral', 1, '0,30', '*', '*', '*', '*', 'ReferralCronjob', 0, NULL),

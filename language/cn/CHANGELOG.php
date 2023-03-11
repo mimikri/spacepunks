@@ -2,7 +2,7 @@
 <?php
 
 /**
- *  2Moons
+ *  spacepunks
  *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,13 +18,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @package 2Moons
+ * @package spacepunks
  * @author Jan <slaver7@gmail.com>
- * @copyright 2011 Jan <slaver7@gmail.com> (Fork/2Moons)
+ * @copyright 2011 Jan <slaver7@gmail.com> (Fork/spacepunks)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.7.3 (2013-05-19)
  * @info $Id: CHANGELOG.php 2632 2013-03-18 19:05:14Z slaver7 $
- * @link http://2moons.cc/
+ * @link https://2moons.de/
  */
  
 $LNG['Version']     = 'Version';
@@ -506,7 +506,7 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: Moondestruction
 - FIX: Teamspeak API for Teamspeak 3 Servers
 - FIX: UpdateSystem dont donwload same Files now
-- DIV: 2Moons not longer require safe_mode = off
+- DIV: spacepunks not longer require safe_mode = off
 - DIV: Change Copyright Header
 - DIV: Max Buttons on Jumpgate
 - DIV: OfficiersVars now on vars.php
@@ -789,7 +789,7 @@ TMOONS-346 - The doubling of the fleet',
 'RC5.0b1' => 'Jan 02.02.10
 - NEW: Search-Engine
 - NEW: LOGIN
-- NEW: Change Name to 2Moons
+- NEW: Change Name to spacepunks
 - ADD: Smarty-Template-Engine
 - ADD: Forschungsmaximum in vars.php einstellbar
 - ADD: fb-share

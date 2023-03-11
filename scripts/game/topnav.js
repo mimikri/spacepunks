@@ -1,5 +1,5 @@
 //topnav.js
-//RealTimeRessisanzeige for 2Moons
+//RealTimeRessisanzeige for spacepunks
 // @version 1.0
 // @copyright 2010 by ShadoX
 

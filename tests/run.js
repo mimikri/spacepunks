@@ -1,4 +1,4 @@
-console.log('Start running 2moons tests');
+console.log('Start running spacepunks tests');
 
 var page = require('webpage').create();
 var prefix = 'http://localhost:8000';

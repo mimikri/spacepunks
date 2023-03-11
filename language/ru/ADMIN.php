@@ -1,18 +1,20 @@
 <?php
 
 /**
- *  2Moons 
- *   by Jan-Otto Kröpke 2009-2016
+ *  Spacepunks
+ *   2moons by Jan-Otto Kröpke 2009-2016
+ *   Spacepunks by mimikri 2023
  *
  * For the full copyright and license information, please view the LICENSE
  *
- * @package 2Moons
- * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @package Spacepunks
+ * @author mimikri
  * @copyright 2009 Lucky
  * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
+ * @copyright 2023 mimikri
  * @licence MIT
- * @version 1.8.0
- * @link https://github.com/jkroepke/2Moons
+ * @version 0.0.1
+ * @link https://github.com/mimikri/spacepunks
  */
 // Translation into Russian - Copyright © 2010-2013 InquisitorEA <support@moon-hunt.ru>
 
@@ -278,12 +280,12 @@ $LNG['ma_all']                         = 'Все';
 $LNG['ma_modes']                       = array('Игровое сообщение', 'Сообщение на электронную почту всем игрокам', 'Игровое сообщение + Сообщение на электронную почту всем игрокам');
 
 // Обзор
-$LNG['ow_title']                       = 'Добро пожаловать в 2Moons';
+$LNG['ow_title']                       = 'Добро пожаловать в spacepunks';
 $LNG['ow_donate']                      = 'Пожертвование';
-$LNG['ow_welcome_text']                = 'Спасибо за выбор 2Moons.';
+$LNG['ow_welcome_text']                = 'Спасибо за выбор spacepunks.';
 $LNG['ow_overview']                    = 'Панель управления';
 $LNG['ow_support']                     = 'Техническая поддержка';
-$LNG['ow_credits']                     = 'Команда 2Moons';
+$LNG['ow_credits']                     = 'Команда spacepunks';
 $LNG['ow_forum']                       = 'Форум';
 $LNG['ow_proyect_leader']              = 'Лидеры проекта';
 $LNG['ow_translator']                  = 'Переводчики';
@@ -382,7 +384,7 @@ $LNG['se_smtp_pass']                   = 'Пароль SMTP';
 $LNG['se_smtp_sendmail']               = 'Адрес электронной почты';
 $LNG['se_smtp_sendmail_info']          = 'Адрес электронной почты, с которой автоматически будут отправляться письма игрокам. Не должен быть идентичен регистрационному адресу электронной почты.';
 $LNG['se_ftp']                         = 'FTP';
-$LNG['se_ftp_info']                    = '2Moons имеет своеобразную систему обновления. Файлы должны находиться на сервере FTP. Это требует сервер данных 2Moons.<br>Если Вы не используете систему обновления, то эти поля можете оставить пустыми.';
+$LNG['se_ftp_info']                    = 'spacepunks имеет своеобразную систему обновления. Файлы должны находиться на сервере FTP. Это требует сервер данных spacepunks.<br>Если Вы не используете систему обновления, то эти поля можете оставить пустыми.';
 $LNG['se_ftp_host']                    = 'FTP хост';
 $LNG['se_ftp_user']                    = 'FTP логин';
 $LNG['se_ftp_pass']                    = 'FTP пароль';
@@ -1072,8 +1074,8 @@ $LNG['up_del']                         = 'Удалить';
 $LNG['up_submit']                      = 'Обновить';
 $LNG['up_version']                     = 'Версия';
 $LNG['up_chmod_error']                 = 'Нет прав на запись (CHMOD 777) для папок:\n\n';
-$LNG['up_need_curl']                   = 'cURL не доступен.<br>Система обновления 2Moons требует cURL для загрузки файлов обновления.';
-$LNG['up_no_xml_ext']                  = 'XML-parser не доступен.<br>Система обновления 2Moons требует XML-парсер для обработки файлов.';
+$LNG['up_need_curl']                   = 'cURL не доступен.<br>Система обновления spacepunks требует cURL для загрузки файлов обновления.';
+$LNG['up_no_xml_ext']                  = 'XML-parser не доступен.<br>Система обновления spacepunks требует XML-парсер для обработки файлов.';
 $LNG['up_offline']                     = 'Обновление сервера недоступно.';
 
 // Настройки чата

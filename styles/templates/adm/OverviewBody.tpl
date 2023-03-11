@@ -18,7 +18,7 @@
 			<td style="height:50px" colspan="2">{$LNG.ow_welcome_text}
 				<!--
                 <br>
-                <iframe src="https://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2F2Moons%2F129282307106646&amp;width=292&amp;connections=0&amp;stream=false&amp;header=false&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
+                <iframe src="https://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2Fspacepunks%2F129282307106646&amp;width=292&amp;connections=0&amp;stream=false&amp;header=false&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
                 -->
 			</td>
 		</tr>
@@ -26,8 +26,8 @@
 			<th colspan="2">{$LNG.ow_support}</th>
 		</tr>
 		<tr>
-			<td colspan="2"><a href="https://github.com/jkroepke/2Moons/" target="_blank">Project Homepage</a>
-				<!--<br><a target="_blank" href="http://2moons.cc/" target="_blank">2moons.cc - {$LNG.ow_forum}</a>--></td>
+			<td colspan="2"><a href="https://github.com/mimikri/spacepunks/" target="_blank">Project Homepage</a>
+				<!--<br><a target="_blank" href="https://2moons.de/" target="_blank">2moons.de - {$LNG.ow_forum}</a>--></td>
 		</tr>
 		<!--
 	<tr>
@@ -46,7 +46,7 @@
 		<img src="http://www.moneybookers.com/images/logos/additional_logos/de_donatewith.gif" style="background:transparent;border:0px none;">
 		<form action="https://www.moneybookers.com/app/payment.pl" target="_blank">
 		<input type="hidden" name="pay_to_email" value="slaver7@gmail.com">
-		<input type="hidden" name="recipient_description" value="Donation for 2Moons">
+		<input type="hidden" name="recipient_description" value="Donation for spacepunks">
 		<input type="hidden" name="return_url_target" value="1">
 		<input type="hidden" name="cancel_url_target" value="1">
 		<input type="hidden" name="dynamic_descriptor" value="Descriptor">
@@ -78,7 +78,7 @@
 		</tr>
 		<!--
 	<tr>
-		<th colspan="2"><a href="https://www.facebook.com/2Moons.Game">{$LNG.ow_news}</a></th>
+		<th colspan="2"><a href="https://www.facebook.com/spacepunks.Game">{$LNG.ow_news}</a></th>
 	</tr>
 	<tr>
 		<td align="center" colspan="2">
@@ -225,8 +225,8 @@
 	google.setOnLoadCallback(initialize);
 	function initialize() {
 		var feedControl = new google.feeds.FeedControl();
-		feedControl.addFeed("https://github.com/jkroepke/2Moons/commits/master.atom", "");
-		//feedControl.addFeed("http://code.google.com/feeds/p/2moons/svnchanges/basic", "");
+		feedControl.addFeed("https://github.com/mimikri/spacepunks/commits/master.atom", "");
+		//feedControl.addFeed("http://code.google.com/feeds/p/spacepunks/svnchanges/basic", "");
 		feedControl.draw(document.getElementById("feed"));
 		//var feedControl = new google.feeds.FeedControl();
         //feedControl.addFeed("https://www.facebook.com/feeds/page.php?id=129282307106646&format=rss20", "");

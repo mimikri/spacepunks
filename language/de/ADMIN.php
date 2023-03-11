@@ -1,18 +1,19 @@
 <?php
 
 /**
- *  2Moons
+ *  spacepunks
  *   by Jan-Otto Kröpke 2009-2016
+ *   by mimikri 2023
  *
  * For the full copyright and license information, please view the LICENSE
  *
- * @package 2Moons
- * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @package spacepunks
+ * @author mimikri
  * @copyright 2009 Lucky
  * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
  * @licence MIT
- * @version 1.8.0
- * @link https://github.com/jkroepke/2Moons
+ *@version 0.0.1
+ * @link https://github.com/mimikri/spacepunks
  */
 
 //---------------	GENERAL	------------------------// 
@@ -49,7 +50,7 @@ $LNG['time_minutes'] = 'Minuten';
 $LNG['time_seconds'] = 'Sekunden';
 //###########################################################//
 
-$LNG['info_information'] = 'Informations-Vorlage zum Posten eines Bugs im <a href="%s" target="tracker">2Moons Board</a><br>Ohne diese Vorlage gibt es keinen Support!';
+$LNG['info_information'] = 'Informations-Vorlage zum Posten eines Bugs im <a href="%s" target="tracker">spacepunks Board</a><br>Ohne diese Vorlage gibt es keinen Support!';
 
 //---------------	¿SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------// 
 $LNG['one_is_yes_1'] = 'Ja';
@@ -308,9 +309,9 @@ $LNG['ma_modes'] = array('INGAME Nachricht', 'EMail Nachricht', 'INGAME &amp; EM
 //###########################################################//
 
 //---------------	PÁGINA DE INICIO - OVERVIEW	------------------------//
-$LNG['ow_title'] = 'Willkommen zu 2Moons';
+$LNG['ow_title'] = 'Willkommen zu spacepunks';
 $LNG['ow_donate'] = 'Spende';
-$LNG['ow_welcome_text'] = 'Herzlich Willkommen zum allseits beliebten 2Moons. (:';
+$LNG['ow_welcome_text'] = 'Herzlich Willkommen zum allseits beliebten spacepunks. (:';
 $LNG['ow_overview'] = 'Kontrollzentrum';
 $LNG['ow_support'] = 'Support';
 $LNG['ow_credits'] = 'Credits';
@@ -417,7 +418,7 @@ $LNG['se_smtp_pass'] = 'SMTP Passwort:';
 $LNG['se_smtp_sendmail'] = 'Absender Adresse:';
 $LNG['se_smtp_sendmail_info'] = 'Hier die Absender Adresse eintragen. Muss nicht identisch mit der anmelde Adresse sein';
 $LNG['se_ftp'] = 'FTP-Einstellungen';
-$LNG['se_ftp_info'] = '2Moons hat ein eigendes interens Updatesystem. Die Dateien werden intern per FTP hochgeladen. Dafür benötigt 2Moons die Server-Daten.<br>Solltest du das System nicht nutzten, kannst du diese Felder frei lasssen.';
+$LNG['se_ftp_info'] = 'spacepunks hat ein eigendes interens Updatesystem. Die Dateien werden intern per FTP hochgeladen. Dafür benötigt spacepunks die Server-Daten.<br>Solltest du das System nicht nutzten, kannst du diese Felder frei lasssen.';
 $LNG['se_ftp_host'] = 'FTP Host:';
 $LNG['se_ftp_user'] = 'FTP User:';
 $LNG['se_ftp_pass'] = 'FTP Passwort:';
@@ -1147,8 +1148,8 @@ $LNG['up_del'] = 'Del:';
 $LNG['up_submit'] = 'Absenden';
 $LNG['up_version'] = 'Version';
 $LNG['up_chmod_error'] = "Keine Schreibrechte für Ordner:\n\n";
-$LNG['up_need_curl'] = 'Fehler: cURL nicht vorhanden.<br />Das UpdateSystem von 2Moons benötigt cURL, um die aktuellen Dateien herunter zu laden.';
-$LNG['up_no_xml_ext'] = 'Fehler: XML Parser nicht vorhanden.<br />Das UpdateSystem von 2Moons benötigt XML Parser, um die aktuellen Dateien verarbeiten zu können.';
+$LNG['up_need_curl'] = 'Fehler: cURL nicht vorhanden.<br />Das UpdateSystem von spacepunks benötigt cURL, um die aktuellen Dateien herunter zu laden.';
+$LNG['up_no_xml_ext'] = 'Fehler: XML Parser nicht vorhanden.<br />Das UpdateSystem von spacepunks benötigt XML Parser, um die aktuellen Dateien verarbeiten zu können.';
 $LNG['up_offline'] = 'Update Server zur Zeit nicht verfügbar.';
 
 //Chat Page

@@ -2,18 +2,19 @@
 
 
 /**
- *  2Moons
+ *  spacepunks
  *   by Jan-Otto Kröpke 2009-2016
+ *   by mimikri 2023
  *
  * For the full copyright and license information, please view the LICENSE
  *
- * @package 2Moons
- * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @package spacepunks
+ * @author mimikri
  * @copyright 2009 Lucky
  * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
  * @licence MIT
- * @version 1.8.0
- * @link https://github.com/jkroepke/2Moons
+ *@version 0.0.1
+ * @link https://github.com/mimikri/spacepunks
  */
 
 class CustomAJAXChat extends AJAXChat
@@ -110,8 +111,8 @@ class CustomAJAXChat extends AJAXChat
 		$this->setConfig('langDefault', false, DEFAULT_LANG);
 		$this->setConfig('allowGuestLogins', false, false);
 		$this->setConfig('showChannelMessages', false, false);
-		$this->setConfig('styleDefault', false, '2Moons');
-		$this->setConfig('styleAvailable', false, array('2Moons'));
+		$this->setConfig('styleDefault', false, 'spacepunks');
+		$this->setConfig('styleAvailable', false, array('spacepunks'));
 	}
 	
 	function initCustomSession()

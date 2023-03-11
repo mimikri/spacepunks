@@ -1,18 +1,20 @@
 <?php
 
 /**
- *  2Moons 
- *   by Jan-Otto Kröpke 2009-2016
+ *  Spacepunks
+ *   2moons by Jan-Otto Kröpke 2009-2016
+ *   Spacepunks by mimikri 2023
  *
  * For the full copyright and license information, please view the LICENSE
  *
- * @package 2Moons
- * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @package Spacepunks
+ * @author mimikri
  * @copyright 2009 Lucky
  * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
+ * @copyright 2023 mimikri
  * @licence MIT
- * @version 1.8.0
- * @link https://github.com/jkroepke/2Moons
+ * @version 0.0.1
+ * @link https://github.com/mimikri/spacepunks
  */
 
 // Translation into Russian - Copyright © 2010-2013 InquisitorEA <support@moon-hunt.ru>
@@ -1009,7 +1011,7 @@ $LNG['ma_missiles_sended']                = ' межпланетных раке�
 
 // Зал славы
 $LNG['tkb_top']                           = 'Зал славы';
-$LNG['tkb_gratz']                         = 'ТОП 100 боёв вселенной 2Moons';
+$LNG['tkb_gratz']                         = 'ТОП 100 боёв вселенной spacepunks';
 $LNG['tkb_platz']                         = 'Место';
 $LNG['tkb_owners']                        = 'Участники';
 $LNG['tkb_datum']                         = 'Дата';

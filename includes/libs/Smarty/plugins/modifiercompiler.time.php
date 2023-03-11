@@ -6,7 +6,7 @@
  */
 
 /**
- * 2Moons time modifier plugin
+ * spacepunks time modifier plugin
  *
  * Type:     modifier<br>
  * Name:     time<br>

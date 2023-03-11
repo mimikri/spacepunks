@@ -1,23 +1,25 @@
 <?php
 /**
- *  2Moons 
- *   by Jan-Otto Kröpke 2009-2016
+ *  Spacepunks
+ *   2moons by Jan-Otto Kröpke 2009-2016
+ *   Spacepunks by mimikri 2023
  *
  * For the full copyright and license information, please view the LICENSE
  *
- * @package 2Moons
- * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @package Spacepunks
+ * @author mimikri
  * @copyright 2009 Lucky
  * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
+ * @copyright 2023 mimikri
  * @licence MIT
- * @version 1.8.0
- * @link https://github.com/jkroepke/2Moons
+ * @version 0.0.1
+ * @link https://github.com/mimikri/spacepunks
  */
 
 // Traduzido por QwataKayean. Todos os Direitos Reservados © 2010-2012
 // Texto escrito conforme o Acordo Ortográfico a ser inserido em 2011 pelo Ministério da Educação de Portugal - convertido pelo Lince.         
 
-// 2Moons - Copyright (C) 2012  Jan Kröpke
+// spacepunks - Copyright (C) 2012  Jan Kröpke
 
 
 
@@ -56,7 +58,7 @@ $LNG['time_minutes']	= 'Minutos';
 $LNG['time_seconds']	= 'Segundos';
 //###########################################################//
 
-$LNG['info_information']	= 'Enviar ou reportar bugs no forum <a href="%s" target="tracker">2Moons</a><br>De outro modo não haverá suporte!';
+$LNG['info_information']	= 'Enviar ou reportar bugs no forum <a href="%s" target="tracker">spacepunks</a><br>De outro modo não haverá suporte!';
 $LNG['uni_reg']				= 'Universo';
 $LNG['user_reg']			= 'Nome';
 $LNG['pass_reg']			= 'Senha';
@@ -322,9 +324,9 @@ $LNG['ma_modes']                = array('Mensagem no jogo', 'Mensagem pelo mail'
 //###########################################################//
 
 //---------------	Pagina Inicial	------------------------//
-$LNG['ow_title']					= 'Bem vindo ao 2Moons!';
+$LNG['ow_title']					= 'Bem vindo ao spacepunks!';
 $LNG['ow_donate']					= 'Doar';
-$LNG['ow_welcome_text']				= 'Bem vindo ao popular 2Moons! (:';
+$LNG['ow_welcome_text']				= 'Bem vindo ao popular spacepunks! (:';
 $LNG['ow_overview']					= 'Controlo';
 $LNG['ow_support']					= 'Suporte';
 $LNG['ow_credits']					= 'Creditos';
@@ -439,7 +441,7 @@ $LNG['se_news']                         = 'Notícias';
 $LNG['se_verfiy_mail']                  = 'Sistema de verificação de E-Mail';
 $LNG['se_verfiy_mail_info']             = 'Se esta opção estiver ativa os jogadores teram de ativar as suas contas.';
 $LNG['se_smtp']                         = 'Configurações de SMTP';
-$LNG['se_smtp_info']					= 'Introduza os dados do Servidor de SMTP para permitir a comunicação entre o servidor do 2Moons e os seus jogadores pelo Servidor de Email SMTP.';
+$LNG['se_smtp_info']					= 'Introduza os dados do Servidor de SMTP para permitir a comunicação entre o servidor do spacepunks e os seus jogadores pelo Servidor de Email SMTP.';
 $LNG['se_mail_active']                 = 'Ativação de Email?';
 $LNG['se_mail_use']						= 'Versão do E-mail:';
 $LNG['se_mail_sel_0']					= 'Função PHP mail()';
@@ -1147,8 +1149,8 @@ $LNG['up_del']							= 'Apagado em:';
 $LNG['up_submit']						= 'Enviar';
 $LNG['up_version']						= 'Versão';
 $LNG['up_chmod_error']					= "Não existe permissão para os ficheiros:\n\n";
-$LNG['up_need_curl']					= 'Erro: O CURL não está presente.<br />A atualização do 2Moons requer cURL para executar download dos ficheiros.';
-$LNG['up_no_xml_ext']					= 'Erro: XML Parser não está presente.<br />A atualização do 2Moons requer XML Parser para processar os ficheiros presentes.';
+$LNG['up_need_curl']					= 'Erro: O CURL não está presente.<br />A atualização do spacepunks requer cURL para executar download dos ficheiros.';
+$LNG['up_no_xml_ext']					= 'Erro: XML Parser não está presente.<br />A atualização do spacepunks requer XML Parser para processar os ficheiros presentes.';
 $LNG['up_offline']						= 'Atualização do servidor indisponivel';
 
 // Página de chat

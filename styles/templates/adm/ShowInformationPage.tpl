@@ -22,7 +22,7 @@ Suhosin: {$suhosin}
 DB Version: {$dbVersion}
 
 -- Game --
-Game Version: 2Moons {$vGame}
+Game Version: spacepunks {$vGame}
 Game Addresse: http://{$root}/
 Game Pfad: http://{$gameroot}/index.php
 

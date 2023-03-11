@@ -9,15 +9,15 @@
 	<link rel="stylesheet" type="text/css" href="styles/resource/css/base/jquery.fancybox.css?v={$REV}">
 	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 	<title>{block name="title"} - {$gameName}{/block}</title>
-	<meta name="generator" content="2Moons {$VERSION}">
+	<meta name="generator" content="spacepunks {$VERSION}">
 	<!-- 
-		This website is powered by 2Moons {$VERSION}
-		2Moons is a free Space Browsergame initially created by Jan-Otto Kröpke and licensed under MIT.
-		2Moons is copyright 2009-2016 of Jan-Otto Kröpke. Extensions are copyright of their respective owners.
-		Information and contribution at https://github.com/jkroepke/2Moons/
+		This website is powered by spacepunks {$VERSION}
+		spacepunks is a free Space Browsergame initially created by Jan-Otto Kröpke and licensed under MIT.
+		spacepunks is copyright 2009-2016 of Jan-Otto Kröpke. Extensions are copyright of their respective owners.
+		Information and contribution at https://github.com/mimikri/spacepunks/
 	-->
-	<meta name="keywords" content="Weltraum Browsergame, XNova, 2Moons, Space, Private, Server, Speed">
-	<meta name="description" content="2Moons Browsergame powerd by https://github.com/jkroepke/2Moons/"> <!-- Noob Check :) -->
+	<meta name="keywords" content="Weltraum Browsergame, XNova, spacepunks, Space, Private, Server, Speed">
+	<meta name="description" content="spacepunks Browsergame powerd by https://github.com/mimikri/spacepunks/"> <!-- Noob Check :) -->
 	<!--[if lt IE 9]>
 	<script src="scripts/base/html5.js"></script>
 	<![endif]-->

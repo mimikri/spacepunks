@@ -1,18 +1,18 @@
  <?php
 
 /**
- *  2Moons
+ *  spacepunks
  *  Copyright (C) 2016 Jan-Otto Kröpke
  *
  * For the full copyright and license information, please view the LICENSE
  *
- * @package 2Moons
- * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @package spacepunks
+ * @author mimikri
  * @copyright 2009 Lucky
  * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
  * @licence MIT
  * @version 1.7.0 (2011-12-10)
- * @link https://github.com/jkroepke/2Moons
+ * @link https://github.com/mimikri/spacepunks
  */
 
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
@@ -30,9 +30,9 @@ function ShowVertify()
 			$REV	= $REV[2];
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_AUTOREFERER, true);
-			curl_setopt($ch, CURLOPT_URL, 'https://raw.githubusercontent.com/jkroepke/2Moons/master/'.$file);
+			curl_setopt($ch, CURLOPT_URL, 'https://raw.githubusercontent.com/mimikri/spacepunks/master/'.$file);
 			curl_setopt($ch, CURLOPT_HEADER, false);
-			curl_setopt($ch, CURLOPT_USERAGENT, "2Moons Update API");
+			curl_setopt($ch, CURLOPT_USERAGENT, "spacepunks Update API");
 			curl_setopt($ch, CURLOPT_CRLF, true);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			$FILE		= curl_exec($ch);

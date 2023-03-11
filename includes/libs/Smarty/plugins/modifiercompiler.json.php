@@ -6,7 +6,7 @@
  */
 
 /**
- * 2Moons json modifier plugin
+ * spacepunks json modifier plugin
  *
  * Type:     modifier<br>
  * Name:     json<br>

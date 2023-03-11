@@ -1,6 +1,6 @@
 <div class="left">
 <h2>Information support to the multi universe</h2>
-<p>2Moons can support multiuniverse healthy, you must configure Web server according to the requested.</p>
+<p>spacepunks can support multiuniverse healthy, you must configure Web server according to the requested.</p>
 <p>You can find out what you server can support in "Information" button. If not sure, best, ask friends at your hosting company.</p>
 <h3>Apache</h3>
 <p>If you run an Apache Server, you must retire out only the rows 48-51 in the .htacces file in the main shipping characters (remove the route).<br>

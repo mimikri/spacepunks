@@ -1,23 +1,25 @@
 <?php
 /**
- *  2Moons 
- *   by Jan-Otto Kröpke 2009-2016
+ *  Spacepunks
+ *   2moons by Jan-Otto Kröpke 2009-2016
+ *   Spacepunks by mimikri 2023
  *
  * For the full copyright and license information, please view the LICENSE
  *
- * @package 2Moons
- * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @package Spacepunks
+ * @author mimikri
  * @copyright 2009 Lucky
  * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
+ * @copyright 2023 mimikri
  * @licence MIT
- * @version 1.8.0
- * @link https://github.com/jkroepke/2Moons
+ * @version 0.0.1
+ * @link https://github.com/mimikri/spacepunks
  */
 
 // Turkce'ye Ibrahim Senyer tarafindan cevirilmistir. Butun Haklari saklidir (C) 2013
-// 2Moons - Copyright (C) 2010-2012 Slaver
+// spacepunks - Copyright (C) 2010-2012 Slaver
 // Translated into Turkish by Ibraihm Senyer . All rights reversed (C) 2013
-// 2Moons - Copyright (C) 2010-2012 Slaver
+// spacepunks - Copyright (C) 2010-2012 Slaver
 
 $LNG['Version']     = 'Version';
 $LNG['Description'] = 'Aciklama';
@@ -498,7 +500,7 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: Moondestruction
 - FIX: Teamspeak API for Teamspeak 3 Servers
 - FIX: UpdateSystem dont donwload same Files now
-- DIV: 2Moons not longer require safe_mode = off
+- DIV: spacepunks not longer require safe_mode = off
 - DIV: Change Copyright Header
 - DIV: Max Buttons on Jumpgate
 - DIV: OfficiersVars now on vars.php
@@ -781,7 +783,7 @@ TMOONS-346 - The doubling of the fleet',
 'RC5.0b1' => 'Jan 02.02.10
 - NEW: Search-Engine
 - NEW: LOGIN
-- NEW: Change Name to 2Moons
+- NEW: Change Name to spacepunks
 - ADD: Smarty-Template-Engine
 - ADD: Forschungsmaximum in vars.php einstellbar
 - ADD: fb-share

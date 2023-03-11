@@ -47,9 +47,9 @@ $config['langDefault'] = 'en';
 $config['langNames'] = array('ar'=>'عربي','bg'=>'Български','bp'=>'Português (Brasil)','ca'=>'Català','cy'=>'Cymraeg','cz'=>'Česky','de'=>'Deutsch','el'=>'Ελληνικα','en'=>'English','es'=>'Español','et'=>'Eesti','fi'=>'Suomi','fr'=>'Français','gl'=>'Galego','he'=>'עברית','hr' => 'Hrvatski','hu' => 'Magyar','in'=>'Bahasa Indonesia','it'=>'Italiano','ja'=>'日本語','ka'=>'ქართული','kr'=>'한글','nl'=>'Nederlands','no'=>'Norsk','pl'=>'Polski','ro'=>'România','ru'=>'Русский','sk'=>'Slovenčina','sl'=>'Slovensko','sr'=>'Srpski','sv'=>'Svenska','tr'=>'Türkçe','uk'=>'Українська','zh'=>'中文 (简体)', 'zh-tw'=>'中文 (繁體)');
 
 // Available styles:
-$config['styleAvailable'] = array('2Moons');
+$config['styleAvailable'] = array('spacepunks');
 // Default style:
-$config['styleDefault'] = '2Moons';
+$config['styleDefault'] = 'spacepunks';
 
 // The encoding used for the XHTML content:
 $config['contentEncoding'] = 'UTF-8';

@@ -1,7 +1,7 @@
 <?php
 
 // Translated into Chinese by Arathi And Raymon . All rights reversed (C) 2013
-// 2Moons - Copyright (C) 2010-2013 
+// spacepunks - Copyright (C) 2010-2013 
 
 // Site Title
 $LNG['siteTitleIndex']				= '首页';

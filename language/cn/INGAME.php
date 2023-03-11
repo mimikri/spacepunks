@@ -1,7 +1,7 @@
 <?php
 
 // Translated into Chinese by Arathi. All rights reversed (C) 2013
-// 2Moons - Copyright (C) 2010-2012 Slaver
+// spacepunks - Copyright (C) 2010-2012 Slaver
 
 
 

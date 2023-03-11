@@ -1,7 +1,7 @@
 <?php
 
 // Translated into English by Arathi. All rights reversed (C) 2012
-// 2Moons - Copyright (C) 2010-2012 Slaver
+// spacepunks - Copyright (C) 2010-2012 Slaver
 
 
 

@@ -8,29 +8,29 @@ services:
       - .:/app
     environment:
       DB_HOST: database
-      DB_USER: 2moons
-      DB_PASSWORD: 2moons
-      DB_NAME: 2moons
+      DB_USER: spacepunks
+      DB_PASSWORD: spacepunks
+      DB_NAME: spacepunks
       ADMIN_NAME: admin
       ADMIN_PASSWORD: admin
       ADMIN_MAIL: mail@example.com
     ports:
       - 8080:80
     networks:
-      - 2moons
+      - spacepunks
   db:
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: 2moons
-      MYSQL_USER: 2moons
-      MYSQL_PASSWORD: 2moons
+      MYSQL_DATABASE: spacepunks
+      MYSQL_USER: spacepunks
+      MYSQL_PASSWORD: spacepunks
     ports:
       - 3306:3306
     networks:
-      2moons:
+      spacepunks:
         aliases:
           - database
 
 networks:
-  2moons:
+  spacepunks:

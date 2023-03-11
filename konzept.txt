@@ -1,0 +1,23 @@
+Das Spiel basiert auf dem Konzept von OGame und hat den Schwerpunkt auf begrenzten Ressourcen und Mutterschiffen.
+
+Das Mutterschiff ist beweglich und kann wie ein Planet ausgebaut werden, um Ressourcen und Schiffe zu produzieren.
+
+Jeder Spieler kann nur ein Mutterschiff besitzen.
+
+Die Stromversorgung kann zentralisiert sein oder vom Mutterschiff ausgehen.
+
+Das Mutterschiff verbraucht Rohstoffe und benötigt regelmäßige Nachladungen.
+
+Das Mutterschiff kann immer weiter ausgebaut werden, benötigt aber auch immer mehr Rohstoffe und wird langsamer.
+
+Antriebsforschung kann das Mutterschiff schneller machen.
+
+Das Mutterschiff kann seine Umgebung nutzen, um seine Leistung zu steigern.
+
+Es könnten verschiedene Arten von Stromquellen erforscht werden, um das Mutterschiff und andere Schiffe mit Energie zu versorgen.
+
+Das Angriffssystem könnte auf die Fixierung des Mutterschiffs basieren, wenn es sich bewegt.
+
+Spieler können Flotten unterhalten, die das Mutterschiff begleiten und unterstützen.
+
+Es können spezielle Technologien entwickelt werden, um die Produktivität des Mutterschiffs zu erhöhen, wie beispielsweise Solarzellen oder Sensoren.

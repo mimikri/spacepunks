@@ -1,24 +1,26 @@
 <?php
 /**
- *  2Moons 
- *   by Jan-Otto Kröpke 2009-2016
+ *  Spacepunks
+ *   2moons by Jan-Otto Kröpke 2009-2016
+ *   Spacepunks by mimikri 2023
  *
  * For the full copyright and license information, please view the LICENSE
  *
- * @package 2Moons
- * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @package Spacepunks
+ * @author mimikri
  * @copyright 2009 Lucky
  * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
+ * @copyright 2023 mimikri
  * @licence MIT
- * @version 1.8.0
- * @link https://github.com/jkroepke/2Moons
+ * @version 0.0.1
+ * @link https://github.com/mimikri/spacepunks
  */
 
 
 // Turkce'ye Ibrahim Senyer tarafindan cevirilmistir. Butun Haklari saklidir (C) 2013
-// 2Moons - Copyright (C) 2010-2012 Slaver
+// spacepunks - Copyright (C) 2010-2012 Slaver
 // Translated into Turkish by Ibraihm Senyer . All rights reversed (C) 2013
-// 2Moons - Copyright (C) 2010-2012 Slaver
+// spacepunks - Copyright (C) 2010-2012 Slaver
 
 
 //---------------	Genel	------------------------//
@@ -58,7 +60,7 @@ $LNG['time_minutes'] = 'Dakika';
 $LNG['time_seconds'] = 'Saniye';
 //###########################################################//
 
-$LNG['info_information'] = 'Buglari foruma  <a href="%s" target="tracker">2Moons</a><br>yada destek sayfasindan bildirebilirsiniz!';
+$LNG['info_information'] = 'Buglari foruma  <a href="%s" target="tracker">spacepunks</a><br>yada destek sayfasindan bildirebilirsiniz!';
 
 //---------------	Evet yada Hayir	------------------------//
 $LNG['one_is_yes_1'] = 'Evet';

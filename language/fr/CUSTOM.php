@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  2Moons
+ *  spacepunks
  *  Copyright (C) 2011  Slaver
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,14 +17,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @package 2Moons
+ * @package spacepunks
  * @author Slaver <slaver7@gmail.com>
  * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/spacepunks)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.5 (2011-07-31)
  * @info $Id: CUSTOM.php 2095 2011-12-21 19:39:40Z slaver7 $
- * @link http://code.google.com/p/2moons/
+ * @link http://code.google.com/p/spacepunks/
  */
  
 // If you have custom lang vars, you can include them here. The file ll be not overwrite by updatemanager

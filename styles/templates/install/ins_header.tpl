@@ -7,12 +7,12 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="{$lang}" class="no-js"> <!--<![endif]-->
 <head>
 	<title>{$title}</title>
-	<meta name="generator" content="2Moons">
+	<meta name="generator" content="spacepunks">
 	<!-- 
-		This website is powered by 2Moons
-		2Moons is a free Space Browsergame initially created by Jan-Otto Kröpke and licensed under MIT.
-		2Moons is copyright 2009-2016 of Jan-Otto Kröpke. Extensions are copyright of their respective owners.
-		Information and contribution at https://github.com/jkroepke/2Moons/
+		This website is powered by spacepunks
+		spacepunks is a free Space Browsergame initially created by Jan-Otto Kröpke and licensed under MIT.
+		spacepunks is copyright 2009-2016 of Jan-Otto Kröpke. Extensions are copyright of their respective owners.
+		Information and contribution at https://github.com/mimikri/spacepunks/
 	-->
 	{if !empty($goto)}
 	<meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
