@@ -260,6 +260,7 @@ function ShowAccountEditorPage()
 				if(!isset($PlanetData))
 				{
 					$template->message($LNG['ad_add_not_exist'], '?page=accounteditor&edit=buildings');
+					exit;
 				}
 				$before = array();
 				$after = array();
