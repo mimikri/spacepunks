@@ -26,7 +26,7 @@ class Smarty_Undefined_Variable extends Smarty_Variable
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return '';
     }

@@ -29,7 +29,7 @@ class Smarty_Internal_Method_AssignGlobal
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */
-    public function assignGlobal(Smarty_Internal_Data $data, $varName, $value = null, $nocache = false)
+    public function assignGlobal(Smarty_Internal_Data $data, $varName, mixed $value = null, $nocache = false): Smarty_Internal_Data
     {
         if ($varName !== '') {
             Smarty::$global_tpl_vars[ $varName ] = new Smarty_Variable($value, $nocache);

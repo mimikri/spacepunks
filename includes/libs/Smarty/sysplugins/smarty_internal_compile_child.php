@@ -21,7 +21,7 @@ class Smarty_Internal_Compile_Child extends Smarty_Internal_CompileBase
      * @var array
      * @see Smarty_Internal_CompileBase
      */
-    public $optional_attributes = array('assign');
+    public $optional_attributes = ['assign'];
 
     /**
      * Tag name
@@ -47,7 +47,7 @@ class Smarty_Internal_Compile_Child extends Smarty_Internal_CompileBase
      * @return string compiled code
      * @throws \SmartyCompilerException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter): string
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
@@ -63,7 +63,7 @@ class Smarty_Internal_Compile_Child extends Smarty_Internal_CompileBase
         if ($this->blockType === 'Child') {
             $compiler->_cache[ 'blockParams' ][ $compiler->_cache[ 'blockNesting' ] ][ 'callsChild' ] = 'true';
         }
-        $_assign = isset($_attr[ 'assign' ]) ? $_attr[ 'assign' ] : null;
+        $_assign = $_attr[ 'assign' ] ?? null;
         $output = "<?php \n";
         if (isset($_assign)) {
             $output .= "ob_start();\n";

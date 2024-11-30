@@ -19,7 +19,7 @@
 class Database
 {
 	protected $dbHandle = NULL;
-	protected $dbTableNames = array();
+	protected $dbTableNames = [];
 	protected $lastInsertId = false;
 	protected $rowCount = false;
 	protected $queryCounter = 0;
@@ -46,12 +46,10 @@ class Database
 
 	protected function __construct()
 	{
-		$database = array();
+		$database = [];
 		require 'includes/config.php';
 		//Connect
-		$db = new PDO("mysql:host=".$database['host'].";port=".$database['port'].";dbname=".$database['databasename'], $database['user'], $database['userpw'], array(
-		    PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET utf8, NAMES utf8, sql_mode = 'STRICT_ALL_TABLES'"
-		));
+		$db = new PDO("mysql:host=".$database['host'].";port=".$database['port'].";dbname=".$database['databasename'], $database['user'], $database['userpw'], [PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET utf8, NAMES utf8, sql_mode = 'STRICT_ALL_TABLES'"]);
 		//error behaviour
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
@@ -60,7 +58,7 @@ class Database
 		// $db->query("SET sql_mode = 'STRICT_ALL_TABLES'");
 		$this->dbHandle = $db;
 
-		$dbTableNames = array();
+		$dbTableNames = [];
 
 		include 'includes/dbtables.php';
 
@@ -71,7 +69,7 @@ class Database
 		}
 	}
 
-	public function disconnect()
+	public function disconnect(): void
 	{
 		$this->dbHandle = NULL;
 	}
@@ -93,7 +91,7 @@ class Database
 	
 	protected function _query($qry, array $params, $type)
 	{
-		if (in_array($type, array("insert", "select", "update", "delete", "replace")) === false)
+		if (in_array($type, ["insert", "select", "update", "delete", "replace"]) === false)
 		{
 			throw new Exception("Unsupported Query Type");
 		}
@@ -140,9 +138,9 @@ class Database
 		return ($type === "select") ? $stmt : true;
 	}
 
-	protected function getQueryType($qry)
+	protected function getQueryType($qry): string
 	{
-		if(!preg_match('!^(\S+)!', $qry, $match))
+		if(!preg_match('!^(\S+)!', (string) $qry, $match))
         {
             throw new Exception("Invalid query $qry!");
         }
@@ -155,7 +153,7 @@ class Database
 		return strtolower($match[1]);
 	}
 
-	public function delete($qry, array $params = array())
+	public function delete($qry, array $params = [])
 	{
 		if (($type = $this->getQueryType($qry)) !== "delete")
 			throw new Exception("Incorrect Delete Query");
@@ -163,7 +161,7 @@ class Database
 		return $this->_query($qry, $params, $type);
 	}
 
-	public function replace($qry, array $params = array())
+	public function replace($qry, array $params = [])
 	{
 		if (($type = $this->getQueryType($qry)) !== "replace")
 			throw new Exception("Incorrect Replace Query");
@@ -171,7 +169,7 @@ class Database
 		return $this->_query($qry, $params, $type);
 	}
 
-	public function update($qry, array $params = array())
+	public function update($qry, array $params = [])
 	{
 		if (($type = $this->getQueryType($qry)) !== "update")
 			throw new Exception("Incorrect Update Query");
@@ -179,7 +177,7 @@ class Database
 		return $this->_query($qry, $params, $type);
 	}
 
-	public function insert($qry, array $params = array())
+	public function insert($qry, array $params = [])
 	{
 		if (($type = $this->getQueryType($qry)) !== "insert")
 			throw new Exception("Incorrect Insert Query");
@@ -187,7 +185,7 @@ class Database
 		return $this->_query($qry, $params, $type);
 	}
 
-	public function select($qry, array $params = array())
+	public function select($qry, array $params = [])
 	{
 		if (($type = $this->getQueryType($qry)) !== "select")
 			throw new Exception("Incorrect Select Query");
@@ -196,7 +194,7 @@ class Database
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function selectSingle($qry, array $params = array(), $field = false)
+	public function selectSingle($qry, array $params = [], $field = false)
 	{
 		if (($type = $this->getQueryType($qry)) !== "select")
 			throw new Exception("Incorrect Select Query");
@@ -216,14 +214,14 @@ class Database
 	 * @param  string|null 	$key
 	 * @return array
 	 */
-	public function lists($table, $column, $key = null)
+	public function lists($table, $column, $key = null): array
 	{
-		$selects = implode(', ', is_null($key) ? array($column) : array($column, $key));
+		$selects = implode(', ', is_null($key) ? [$column] : [$column, $key]);
 		
 		$qry = "SELECT {$selects} FROM %%{$table}%%;";
-		$stmt = $this->_query($qry, array(), 'select');
+		$stmt = $this->_query($qry, [], 'select');
 
-		$results = array();
+		$results = [];
 		if (is_null($key))
 		{
 			while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
@@ -242,7 +240,7 @@ class Database
 		return $results;
 	}
 
-	public function query($qry)
+	public function query($qry): void
 	{
 		$this->lastInsertId = false;
 		$this->rowCount = false;
@@ -263,7 +261,7 @@ class Database
 		$this->rowCount = $stmt->rowCount();
 
 		$this->queryCounter++;
-		return in_array($this->getQueryType($qry), array('select', 'show')) ? $stmt->fetchAll(PDO::FETCH_ASSOC) : true;
+		return in_array($this->getQueryType($qry), ['select', 'show']) ? $stmt->fetchAll(PDO::FETCH_ASSOC) : true;
 	}
 
 	public function getQueryCounter()
@@ -271,7 +269,7 @@ class Database
 		return $this->queryCounter;
 	}
 
-	static public function formatDate($time)
+	static public function formatDate($time): string
 	{
 		return date('Y-m-d H:i:s', $time);
 	}

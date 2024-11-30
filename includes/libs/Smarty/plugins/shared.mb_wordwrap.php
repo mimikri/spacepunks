@@ -21,7 +21,7 @@ if (!function_exists('smarty_mb_wordwrap')) {
      * @return string  wrapped string
      * @author Rodney Rehm
      */
-    function smarty_mb_wordwrap($str, $width = 75, $break = "\n", $cut = false)
+    function smarty_mb_wordwrap($str, $width = 75, string $break = "\n", $cut = false): string
     {
         // break words into tokens using white space as a delimiter
         $tokens =
@@ -33,7 +33,7 @@ if (!function_exists('smarty_mb_wordwrap')) {
 
         foreach ($tokens as $_token) {
             $token_length = mb_strlen($_token, Smarty::$_CHARSET);
-            $_tokens = array($_token);
+            $_tokens = [$_token];
             if ($token_length > $width) {
                 if ($cut) {
                     $_tokens = preg_split('!(.{' . $width . '})!S' . Smarty::$_UTF8_MODIFIER, $_token, - 1,

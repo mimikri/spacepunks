@@ -32,7 +32,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
      * @return int number of template files deleted
      * @throws \SmartyException
      */
-    public function clearCompiledTemplate(Smarty $smarty, $resource_name = null, $compile_id = null, $exp_time = null)
+    public function clearCompiledTemplate(Smarty $smarty, $resource_name = null, $compile_id = null, $exp_time = null): int
     {
         // clear template objects cache
         $smarty->_clearTemplateCache();
@@ -69,12 +69,12 @@ class Smarty_Internal_Method_ClearCompiledTemplate
         try {
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             // NOTE: UnexpectedValueException thrown for PHP >= 5.3
-        } catch (Exception $e) {
+        } catch (Exception) {
             return 0;
         }
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($_compile as $_file) {
-            if (substr(basename($_file->getPathname()), 0, 1) === '.') {
+            if (str_starts_with(basename((string) $_file->getPathname()), '.')) {
                 continue;
             }
             $_filepath = (string)$_file;
@@ -85,7 +85,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
                 }
             } else {
                 // delete only php files
-                if (substr($_filepath, -4) !== '.php') {
+                if (!str_ends_with($_filepath, '.php')) {
                     continue;
                 }
                 $unlink = false;

@@ -13,7 +13,7 @@
  *
  * @return string filtered output
  */
-function smarty_variablefilter_htmlspecialchars($source, Smarty_Internal_Template $template)
+function smarty_variablefilter_htmlspecialchars($source, Smarty_Internal_Template $template): string
 {
     return htmlspecialchars($source, ENT_QUOTES, Smarty::$_CHARSET);
 }

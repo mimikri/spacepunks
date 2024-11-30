@@ -11,10 +11,8 @@ class Smarty_Internal_Runtime_Foreach
 {
     /**
      * Stack of saved variables
-     *
-     * @var array
      */
-    private $stack = array();
+    private array $stack = [];
 
     /**
      * Init foreach loop
@@ -34,15 +32,15 @@ class Smarty_Internal_Runtime_Foreach
      */
     public function init(
         Smarty_Internal_Template $tpl,
-        $from,
+        mixed $from,
         $item,
         $needTotal = false,
         $key = null,
         $name = null,
-        $properties = array()
-    ) {
+        array $properties = []
+    ): object|array|null {
         $needTotal = $needTotal || isset($properties[ 'total' ]);
-        $saveVars = array();
+        $saveVars = [];
         $total = null;
         if (!is_array($from)) {
             if (is_object($from)) {
@@ -57,10 +55,7 @@ class Smarty_Internal_Runtime_Foreach
             $total = empty($from) ? 0 : ($needTotal ? count($from) : 1);
         }
         if (isset($tpl->tpl_vars[ $item ])) {
-            $saveVars[ 'item' ] = array(
-                $item,
-                $tpl->tpl_vars[ $item ]
-            );
+            $saveVars[ 'item' ] = [$item, $tpl->tpl_vars[ $item ]];
         }
         $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
         if ($total === 0) {
@@ -68,10 +63,7 @@ class Smarty_Internal_Runtime_Foreach
         } else {
             if ($key) {
                 if (isset($tpl->tpl_vars[ $key ])) {
-                    $saveVars[ 'key' ] = array(
-                        $key,
-                        $tpl->tpl_vars[ $key ]
-                    );
+                    $saveVars[ 'key' ] = [$key, $tpl->tpl_vars[ $key ]];
                 }
                 $tpl->tpl_vars[ $key ] = new Smarty_Variable(null, $tpl->isRenderingCache);
             }
@@ -82,12 +74,9 @@ class Smarty_Internal_Runtime_Foreach
         if ($name) {
             $namedVar = "__smarty_foreach_{$name}";
             if (isset($tpl->tpl_vars[ $namedVar ])) {
-                $saveVars[ 'named' ] = array(
-                    $namedVar,
-                    $tpl->tpl_vars[ $namedVar ]
-                );
+                $saveVars[ 'named' ] = [$namedVar, $tpl->tpl_vars[ $namedVar ]];
             }
-            $namedProp = array();
+            $namedProp = [];
             if (isset($properties[ 'total' ])) {
                 $namedProp[ 'total' ] = $total;
             }
@@ -109,12 +98,11 @@ class Smarty_Internal_Runtime_Foreach
     /**
      * [util function] counts an array, arrayAccess/traversable or PDOStatement object
      *
-     * @param mixed $value
      *
      * @return int   the count for arrays and objects that implement countable, 1 for other objects that don't, and 0
      *               for empty elements
      */
-    public function count($value)
+    public function count(mixed $value): int
     {
         if ($value instanceof IteratorAggregate) {
             // Note: getIterator() returns a Traversable, not an Iterator
@@ -140,7 +128,7 @@ class Smarty_Internal_Runtime_Foreach
      * @param \Smarty_Internal_Template $tpl
      * @param int                       $levels number of levels
      */
-    public function restore(Smarty_Internal_Template $tpl, $levels = 1)
+    public function restore(Smarty_Internal_Template $tpl, $levels = 1): void
     {
         while ($levels) {
             $saveVars = array_pop($this->stack);

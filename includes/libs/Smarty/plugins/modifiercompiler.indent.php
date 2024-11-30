@@ -18,7 +18,7 @@
  *
  * @return string with compiled code
  */
-function smarty_modifiercompiler_indent($params)
+function smarty_modifiercompiler_indent($params): string
 {
     if (!isset($params[ 1 ])) {
         $params[ 1 ] = 4;

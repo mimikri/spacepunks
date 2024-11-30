@@ -16,7 +16,7 @@
  * @version 0.0.1
  * @link https://github.com/mimikri/spacepunks
  */
- 
+
 $LNG['ub_points']		= 'Punkty';
 $LNG['ub_fleets']		= 'Flota';
 $LNG['ub_researh']		= 'Badania';

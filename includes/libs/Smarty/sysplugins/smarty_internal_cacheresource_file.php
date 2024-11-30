@@ -25,7 +25,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      *
      * @return void
      */
-    public function populate(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template)
+    public function populate(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template): void
     {
         $source = &$_template->source;
         $smarty = &$_template->smarty;
@@ -34,14 +34,8 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
         $cached->filepath = $smarty->getCacheDir();
         if (isset($_template->cache_id)) {
             $cached->filepath .= preg_replace(
-                                     array(
-                                         '![^\w|]+!',
-                                         '![|]+!'
-                                     ),
-                                     array(
-                                         '_',
-                                         $_compile_dir_sep
-                                     ),
+                                     ['![^\w|]+!', '![|]+!'],
+                                     ['_', $_compile_dir_sep],
                                      $_template->cache_id
                                  ) . $_compile_dir_sep;
         }
@@ -77,7 +71,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      *
      * @return void
      */
-    public function populateTimestamp(Smarty_Template_Cached $cached)
+    public function populateTimestamp(Smarty_Template_Cached $cached): void
     {
         $cached->timestamp = $cached->exists = is_file($cached->filepath);
         if ($cached->exists) {
@@ -117,7 +111,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      * @return bool success
      * @throws \SmartyException
      */
-    public function writeCachedContent(Smarty_Internal_Template $_template, $content)
+    public function writeCachedContent(Smarty_Internal_Template $_template, $content): bool
     {
         if ($_template->smarty->ext->_writeFile->writeFile(
                 $_template->cached->filepath,
@@ -149,7 +143,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      *
      * @return string  content
      */
-    public function readCachedContent(Smarty_Internal_Template $_template)
+    public function readCachedContent(Smarty_Internal_Template $_template): string|false
     {
         if (is_file($_template->cached->filepath)) {
             return file_get_contents($_template->cached->filepath);
@@ -165,7 +159,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      *
      * @return integer number of cache files deleted
      */
-    public function clearAll(Smarty $smarty, $exp_time = null)
+    public function clearAll(Smarty $smarty, $exp_time = null): int
     {
         return $smarty->ext->_cacheResourceFile->clear($smarty, null, null, null, $exp_time);
     }
@@ -181,7 +175,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      *
      * @return integer number of cache files deleted
      */
-    public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
+    public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time): int
     {
         return $smarty->ext->_cacheResourceFile->clear($smarty, $resource_name, $cache_id, $compile_id, $exp_time);
     }
@@ -213,7 +207,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      *
      * @return bool|void
      */
-    public function acquireLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function acquireLock(Smarty $smarty, Smarty_Template_Cached $cached): void
     {
         $cached->is_locked = true;
         touch($cached->lock_id);
@@ -227,7 +221,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      *
      * @return bool|void
      */
-    public function releaseLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function releaseLock(Smarty $smarty, Smarty_Template_Cached $cached): void
     {
         $cached->is_locked = false;
         @unlink($cached->lock_id);

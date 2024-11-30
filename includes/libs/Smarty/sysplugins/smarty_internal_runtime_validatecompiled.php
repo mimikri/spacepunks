@@ -20,7 +20,7 @@ class Smarty_Internal_Runtime_ValidateCompiled
      *
      * @return bool  flag if compiled or cache file is valid
      */
-    public function decodeProperties(Smarty_Internal_Template $tpl, $properties, $cache = false)
+    public function decodeProperties(Smarty_Internal_Template $tpl, $properties, $cache = false): bool
     {
         $is_valid = true;
         if (Smarty::SMARTY_VERSION != $properties['version']) {
@@ -70,7 +70,7 @@ class Smarty_Internal_Runtime_ValidateCompiled
         } else {
             $tpl->mustCompile = !$is_valid;
             $resource = $tpl->compiled;
-            $resource->includes = isset($properties['includes']) ? $properties['includes'] : array();
+            $resource->includes = $properties['includes'] ?? [];
         }
         if ($is_valid) {
             $resource->unifunc = $properties['unifunc'];

@@ -17,32 +17,18 @@
 class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCompilerBase
 {
     /**
-     * Lexer class name
-     *
-     * @var string
-     */
-    public $lexer_class;
-
-    /**
-     * Parser class name
-     *
-     * @var string
-     */
-    public $parser_class;
-
-    /**
      * array of vars which can be compiled in local scope
      *
      * @var array
      */
-    public $local_var = array();
+    public $local_var = [];
 
     /**
      * array of callbacks called when the normal compile process of template is finished
      *
      * @var array
      */
-    public $postCompileCallbacks = array();
+    public $postCompileCallbacks = [];
 
     /**
      * prefix code
@@ -65,12 +51,15 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      * @param string $parser_class class name
      * @param Smarty $smarty       global instance
      */
-    public function __construct($lexer_class, $parser_class, Smarty $smarty)
+    public function __construct(/**
+     * Lexer class name
+     */
+    public $lexer_class, /**
+     * Parser class name
+     */
+    public $parser_class, Smarty $smarty)
     {
         parent::__construct($smarty);
-        // get required plugins
-        $this->lexer_class = $lexer_class;
-        $this->parser_class = $parser_class;
     }
 
     /**
@@ -82,7 +71,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      * @return bool true if compiling succeeded, false if it failed
      * @throws \SmartyCompilerException
      */
-    protected function doCompile($_content, $isTemplateSource = false)
+    protected function doCompile($_content, $isTemplateSource = false): string
     {
         /* here is where the compiling takes place. Smarty
           tags in the templates are replaces with PHP code,
@@ -92,10 +81,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
             new $this->parser_class(
                 new $this->lexer_class(
                     str_replace(
-                        array(
-                            "\r\n",
-                            "\r"
-                        ),
+                        ["\r\n", "\r"],
                         "\n",
                         $_content
                     ),
@@ -135,7 +121,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         // check for unclosed tags
         if (count($this->_tag_stack) > 0) {
             // get stacked info
-            list($openTag, $_data) = array_pop($this->_tag_stack);
+            [$openTag, $_data] = array_pop($this->_tag_stack);
             $this->trigger_template_error(
                 "unclosed {$this->smarty->left_delimiter}" . $openTag .
                 "{$this->smarty->right_delimiter} tag"
@@ -160,7 +146,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      * @param string   $key       optional key for callback
      * @param bool     $replace   if true replace existing keyed callback
      */
-    public function registerPostCompileCallback($callback, $parameter = array(), $key = null, $replace = false)
+    public function registerPostCompileCallback($callback, $parameter = [], $key = null, $replace = false): void
     {
         array_unshift($parameter, $callback);
         if (isset($key)) {
@@ -177,7 +163,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      *
      * @param string $key callback key
      */
-    public function unregisterPostCompileCallback($key)
+    public function unregisterPostCompileCallback($key): void
     {
         unset($this->postCompileCallbacks[ $key ]);
     }

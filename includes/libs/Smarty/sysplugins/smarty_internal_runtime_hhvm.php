@@ -18,10 +18,10 @@ class Smarty_Internal_Runtime_Hhvm
      *
      * @return mixed
      */
-    static function includeHhvm(Smarty_Internal_Template $_template, $file)
+    static function includeHhvm(Smarty_Internal_Template $_template, string $file)
     {
         $_smarty_tpl = $_template;
-        $tmp_file = $file . preg_replace('![^\w]+!', '_', uniqid(rand(), true)) . '.php';
+        $tmp_file = $file . preg_replace('![^\w]+!', '_', uniqid(random_int(0, mt_getrandmax()), true)) . '.php';
         file_put_contents($tmp_file, file_get_contents($file));
         $result = @include $tmp_file;
         @unlink($tmp_file);

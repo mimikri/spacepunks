@@ -21,18 +21,13 @@
 function smarty_modifiercompiler_unescape($params, Smarty_Internal_TemplateCompilerBase $compiler)
 {
     $compiler->template->_checkPlugins(
-        array(
-            array(
-                'function' => 'smarty_literal_compiler_param',
-                'file'     => SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php'
-            )
-        )
+        [['function' => 'smarty_literal_compiler_param', 'file'     => SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php']]
     );
 
     $esc_type = smarty_literal_compiler_param($params, 1, 'html');
 
     if (!isset($params[ 2 ])) {
-        $params[ 2 ] = '\'' . addslashes(Smarty::$_CHARSET) . '\'';
+        $params[ 2 ] = '\'' . addslashes((string) Smarty::$_CHARSET) . '\'';
     }
 
     switch ($esc_type) {

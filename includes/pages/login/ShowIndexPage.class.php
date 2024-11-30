@@ -25,7 +25,7 @@ class ShowIndexPage extends AbstractLoginPage
 		$this->setWindow('light');
 	}
 	
-	function show() 
+	function show(): void 
 	{
 		global $LNG;
 		
@@ -35,7 +35,7 @@ class ShowIndexPage extends AbstractLoginPage
 			$this->redirectTo('index.php?page=register&referralID='.$referralID);
 		}
 	
-		$universeSelect	= array();
+		$universeSelect	= [];
 		
 		foreach(Universe::availableUniverses() as $uniId)
 		{
@@ -51,14 +51,7 @@ class ShowIndexPage extends AbstractLoginPage
 		}
 
 		$config				= Config::get();
-		$this->assign(array(
-			'universeSelect'		=> $universeSelect,
-			'code'					=> $loginCode,
-			'descHeader'			=> sprintf($LNG['loginWelcome'], $config->game_name),
-			'descText'				=> sprintf($LNG['loginServerDesc'], $config->game_name),
-            'gameInformations'      => explode("\n", $LNG['gameInformations']),
-			'loginInfo'				=> sprintf($LNG['loginInfo'], '<a href="index.php?page=rules">'.$LNG['menu_rules'].'</a>')
-		));
+		$this->assign(['universeSelect'		=> $universeSelect, 'code'					=> $loginCode, 'descHeader'			=> sprintf($LNG['loginWelcome'], $config->game_name), 'descText'				=> sprintf($LNG['loginServerDesc'], $config->game_name), 'gameInformations'      => explode("\n", (string) $LNG['gameInformations']), 'loginInfo'				=> sprintf($LNG['loginInfo'], '<a href="index.php?page=rules">'.$LNG['menu_rules'].'</a>')]);
 		
 		$this->display('page.index.default.tpl');
 	}

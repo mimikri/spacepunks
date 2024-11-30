@@ -29,7 +29,7 @@ class Smarty_Internal_Method_SetDebugTemplate
      * @return \Smarty|\Smarty_Internal_Template
      * @throws SmartyException if file is not readable
      */
-    public function setDebugTemplate(Smarty_Internal_TemplateBase $obj, $tpl_name)
+    public function setDebugTemplate(Smarty_Internal_TemplateBase $obj, $tpl_name): Smarty_Internal_TemplateBase
     {
         $smarty = $obj->_getSmartyObj();
         if (!is_readable($tpl_name)) {

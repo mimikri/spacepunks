@@ -103,24 +103,14 @@ class Smarty_Internal_Configfilelexer
      *
      * @var array
      */
-    public $state_name = array(
-        1 => 'START', 2 => 'VALUE', 3 => 'NAKED_STRING_VALUE', 4 => 'COMMENT', 5 => 'SECTION', 6 => 'TRIPPLE'
-    );
+    public $state_name = [1 => 'START', 2 => 'VALUE', 3 => 'NAKED_STRING_VALUE', 4 => 'COMMENT', 5 => 'SECTION', 6 => 'TRIPPLE'];
 
     /**
      * token names
      *
      * @var array
      */
-    public $smarty_token_names = array(        // Text for parser error messages
-    );
-
-    /**
-     * compiler object
-     *
-     * @var Smarty_Internal_Config_File_Compiler
-     */
-    private $compiler = null;
+    public $smarty_token_names = [];
 
     /**
      * copy of config_booleanize
@@ -146,9 +136,9 @@ class Smarty_Internal_Configfilelexer
 
     private $yy_global_pattern6 = null;
 
-    private $_yy_state          = 1;
+    private int $_yy_state          = 1;
 
-    private $_yy_stack          = array();
+    private array $_yy_stack          = [];
 
     /**
      * constructor
@@ -156,7 +146,10 @@ class Smarty_Internal_Configfilelexer
      * @param   string                             $data template source
      * @param Smarty_Internal_Config_File_Compiler $compiler
      */
-    public function __construct($data, Smarty_Internal_Config_File_Compiler $compiler)
+    public function __construct(string $data, /**
+     * compiler object
+     */
+    private readonly Smarty_Internal_Config_File_Compiler $compiler)
     {
         $this->data = $data . "\n"; //now all lines are \n-terminated
         $this->dataLength = strlen($data);
@@ -165,8 +158,7 @@ class Smarty_Internal_Configfilelexer
             $this->counter += strlen($match[ 0 ]);
         }
         $this->line = 1;
-        $this->compiler = $compiler;
-        $this->smarty = $compiler->smarty;
+        $this->smarty = $this->compiler->smarty;
         $this->configBooleanize = $this->smarty->config_booleanize;
     }
 
@@ -175,7 +167,7 @@ class Smarty_Internal_Configfilelexer
         return $input;
     } // end function
 
-    public function PrintTrace()
+    public function PrintTrace(): void
     {
         $this->yyTraceFILE = fopen('php://output', 'w');
         $this->yyTracePrompt = '<br>';
@@ -186,14 +178,14 @@ class Smarty_Internal_Configfilelexer
         return $this->{'yylex' . $this->_yy_state}();
     }
 
-    public function yypushstate($state)
+    public function yypushstate(int $state): void
     {
         if ($this->yyTraceFILE) {
             fprintf(
                 $this->yyTraceFILE,
                 "%sState push %s\n",
                 $this->yyTracePrompt,
-                isset($this->state_name[ $this->_yy_state ]) ? $this->state_name[ $this->_yy_state ] : $this->_yy_state
+                $this->state_name[ $this->_yy_state ] ?? $this->_yy_state
             );
         }
         array_push($this->_yy_stack, $this->_yy_state);
@@ -203,19 +195,19 @@ class Smarty_Internal_Configfilelexer
                 $this->yyTraceFILE,
                 "%snew State %s\n",
                 $this->yyTracePrompt,
-                isset($this->state_name[ $this->_yy_state ]) ? $this->state_name[ $this->_yy_state ] : $this->_yy_state
+                $this->state_name[ $this->_yy_state ] ?? $this->_yy_state
             );
         }
     }
 
-    public function yypopstate()
+    public function yypopstate(): void
     {
         if ($this->yyTraceFILE) {
             fprintf(
                 $this->yyTraceFILE,
                 "%sState pop %s\n",
                 $this->yyTracePrompt,
-                isset($this->state_name[ $this->_yy_state ]) ? $this->state_name[ $this->_yy_state ] : $this->_yy_state
+                $this->state_name[ $this->_yy_state ] ?? $this->_yy_state
             );
         }
         $this->_yy_state = array_pop($this->_yy_stack);
@@ -224,12 +216,12 @@ class Smarty_Internal_Configfilelexer
                 $this->yyTraceFILE,
                 "%snew State %s\n",
                 $this->yyTracePrompt,
-                isset($this->state_name[ $this->_yy_state ]) ? $this->state_name[ $this->_yy_state ] : $this->_yy_state
+                $this->state_name[ $this->_yy_state ] ?? $this->_yy_state
             );
         }
     }
 
-    public function yybegin($state)
+    public function yybegin(int $state): void
     {
         $this->_yy_state = $state;
         if ($this->yyTraceFILE) {
@@ -237,7 +229,7 @@ class Smarty_Internal_Configfilelexer
                 $this->yyTraceFILE,
                 "%sState set %s\n",
                 $this->yyTracePrompt,
-                isset($this->state_name[ $this->_yy_state ]) ? $this->state_name[ $this->_yy_state ] : $this->_yy_state
+                $this->state_name[ $this->_yy_state ] ?? $this->_yy_state
             );
         }
     }
@@ -274,8 +266,8 @@ class Smarty_Internal_Configfilelexer
                 $this->value = current($yymatches); // token value
                 $r = $this->{'yy_r1_' . $this->token}();
                 if ($r === null) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
+                    $this->counter += strlen((string) $this->value);
+                    $this->line += substr_count((string) $this->value, "\n");
                     // accept this token
                     return true;
                 } elseif ($r === true) {
@@ -283,8 +275,8 @@ class Smarty_Internal_Configfilelexer
                     // process this token in the new state
                     return $this->yylex();
                 } elseif ($r === false) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
+                    $this->counter += strlen((string) $this->value);
+                    $this->line += substr_count((string) $this->value, "\n");
                     if ($this->counter >= $this->dataLength) {
                         return false; // end of input
                     }
@@ -299,45 +291,45 @@ class Smarty_Internal_Configfilelexer
         } while (true);
     }
 
-    public function yy_r1_1()
+    public function yy_r1_1(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_COMMENTSTART;
         $this->yypushstate(self::COMMENT);
     }
 
-    public function yy_r1_2()
+    public function yy_r1_2(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_OPENB;
         $this->yypushstate(self::SECTION);
     }
 
-    public function yy_r1_3()
+    public function yy_r1_3(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_CLOSEB;
     }
 
-    public function yy_r1_4()
+    public function yy_r1_4(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_EQUAL;
         $this->yypushstate(self::VALUE);
     } // end function
 
-    public function yy_r1_5()
+    public function yy_r1_5(): bool
     {
         return false;
     }
 
-    public function yy_r1_6()
+    public function yy_r1_6(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_NEWLINE;
     }
 
-    public function yy_r1_7()
+    public function yy_r1_7(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_ID;
     }
 
-    public function yy_r1_8()
+    public function yy_r1_8(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_OTHER;
     }
@@ -374,8 +366,8 @@ class Smarty_Internal_Configfilelexer
                 $this->value = current($yymatches); // token value
                 $r = $this->{'yy_r2_' . $this->token}();
                 if ($r === null) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
+                    $this->counter += strlen((string) $this->value);
+                    $this->line += substr_count((string) $this->value, "\n");
                     // accept this token
                     return true;
                 } elseif ($r === true) {
@@ -383,8 +375,8 @@ class Smarty_Internal_Configfilelexer
                     // process this token in the new state
                     return $this->yylex();
                 } elseif ($r === false) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
+                    $this->counter += strlen((string) $this->value);
+                    $this->line += substr_count((string) $this->value, "\n");
                     if ($this->counter >= $this->dataLength) {
                         return false; // end of input
                     }
@@ -399,36 +391,36 @@ class Smarty_Internal_Configfilelexer
         } while (true);
     }
 
-    public function yy_r2_1()
+    public function yy_r2_1(): bool
     {
         return false;
     }
 
-    public function yy_r2_2()
+    public function yy_r2_2(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_FLOAT;
         $this->yypopstate();
     }
 
-    public function yy_r2_3()
+    public function yy_r2_3(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_INT;
         $this->yypopstate();
     }
 
-    public function yy_r2_4()
+    public function yy_r2_4(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_QUOTES;
         $this->yypushstate(self::TRIPPLE);
     }
 
-    public function yy_r2_5()
+    public function yy_r2_5(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_SINGLE_QUOTED_STRING;
         $this->yypopstate();
     }
 
-    public function yy_r2_6()
+    public function yy_r2_6(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_DOUBLE_QUOTED_STRING;
         $this->yypopstate();
@@ -437,7 +429,7 @@ class Smarty_Internal_Configfilelexer
     public function yy_r2_7()
     {
         if (!$this->configBooleanize ||
-            !in_array(strtolower($this->value), array('true', 'false', 'on', 'off', 'yes', 'no'))) {
+            !in_array(strtolower($this->value), ['true', 'false', 'on', 'off', 'yes', 'no'])) {
             $this->yypopstate();
             $this->yypushstate(self::NAKED_STRING_VALUE);
             return true; //reprocess in new state
@@ -447,13 +439,13 @@ class Smarty_Internal_Configfilelexer
         }
     }
 
-    public function yy_r2_8()
+    public function yy_r2_8(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_NAKED_STRING;
         $this->yypopstate();
     }
 
-    public function yy_r2_9()
+    public function yy_r2_9(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_NAKED_STRING;
         $this->value = '';
@@ -491,8 +483,8 @@ class Smarty_Internal_Configfilelexer
                 $this->value = current($yymatches); // token value
                 $r = $this->{'yy_r3_' . $this->token}();
                 if ($r === null) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
+                    $this->counter += strlen((string) $this->value);
+                    $this->line += substr_count((string) $this->value, "\n");
                     // accept this token
                     return true;
                 } elseif ($r === true) {
@@ -500,8 +492,8 @@ class Smarty_Internal_Configfilelexer
                     // process this token in the new state
                     return $this->yylex();
                 } elseif ($r === false) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
+                    $this->counter += strlen((string) $this->value);
+                    $this->line += substr_count((string) $this->value, "\n");
                     if ($this->counter >= $this->dataLength) {
                         return false; // end of input
                     }
@@ -516,7 +508,7 @@ class Smarty_Internal_Configfilelexer
         } while (true);
     }
 
-    public function yy_r3_1()
+    public function yy_r3_1(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_NAKED_STRING;
         $this->yypopstate();
@@ -553,8 +545,8 @@ class Smarty_Internal_Configfilelexer
                 $this->value = current($yymatches); // token value
                 $r = $this->{'yy_r4_' . $this->token}();
                 if ($r === null) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
+                    $this->counter += strlen((string) $this->value);
+                    $this->line += substr_count((string) $this->value, "\n");
                     // accept this token
                     return true;
                 } elseif ($r === true) {
@@ -562,8 +554,8 @@ class Smarty_Internal_Configfilelexer
                     // process this token in the new state
                     return $this->yylex();
                 } elseif ($r === false) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
+                    $this->counter += strlen((string) $this->value);
+                    $this->line += substr_count((string) $this->value, "\n");
                     if ($this->counter >= $this->dataLength) {
                         return false; // end of input
                     }
@@ -578,17 +570,17 @@ class Smarty_Internal_Configfilelexer
         } while (true);
     }
 
-    public function yy_r4_1()
+    public function yy_r4_1(): bool
     {
         return false;
     }
 
-    public function yy_r4_2()
+    public function yy_r4_2(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_NAKED_STRING;
     } // end function
 
-    public function yy_r4_3()
+    public function yy_r4_3(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_NEWLINE;
         $this->yypopstate();
@@ -625,8 +617,8 @@ class Smarty_Internal_Configfilelexer
                 $this->value = current($yymatches); // token value
                 $r = $this->{'yy_r5_' . $this->token}();
                 if ($r === null) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
+                    $this->counter += strlen((string) $this->value);
+                    $this->line += substr_count((string) $this->value, "\n");
                     // accept this token
                     return true;
                 } elseif ($r === true) {
@@ -634,8 +626,8 @@ class Smarty_Internal_Configfilelexer
                     // process this token in the new state
                     return $this->yylex();
                 } elseif ($r === false) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
+                    $this->counter += strlen((string) $this->value);
+                    $this->line += substr_count((string) $this->value, "\n");
                     if ($this->counter >= $this->dataLength) {
                         return false; // end of input
                     }
@@ -650,12 +642,12 @@ class Smarty_Internal_Configfilelexer
         } while (true);
     }
 
-    public function yy_r5_1()
+    public function yy_r5_1(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_DOT;
     }
 
-    public function yy_r5_2()
+    public function yy_r5_2(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_SECTION;
         $this->yypopstate();
@@ -692,8 +684,8 @@ class Smarty_Internal_Configfilelexer
                 $this->value = current($yymatches); // token value
                 $r = $this->{'yy_r6_' . $this->token}();
                 if ($r === null) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
+                    $this->counter += strlen((string) $this->value);
+                    $this->line += substr_count((string) $this->value, "\n");
                     // accept this token
                     return true;
                 } elseif ($r === true) {
@@ -701,8 +693,8 @@ class Smarty_Internal_Configfilelexer
                     // process this token in the new state
                     return $this->yylex();
                 } elseif ($r === false) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
+                    $this->counter += strlen((string) $this->value);
+                    $this->line += substr_count((string) $this->value, "\n");
                     if ($this->counter >= $this->dataLength) {
                         return false; // end of input
                     }
@@ -717,14 +709,14 @@ class Smarty_Internal_Configfilelexer
         } while (true);
     }
 
-    public function yy_r6_1()
+    public function yy_r6_1(): void
     {
         $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_QUOTES_END;
         $this->yypopstate();
         $this->yypushstate(self::START);
     }
 
-    public function yy_r6_2()
+    public function yy_r6_2(): void
     {
         $to = strlen($this->data);
         preg_match("/\"\"\"[ \t\r]*[\n#;]/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);

@@ -67,7 +67,7 @@ function smarty_function_cycle($params, $template)
     if (is_array($cycle_vars[ $name ][ 'values' ])) {
         $cycle_array = $cycle_vars[ $name ][ 'values' ];
     } else {
-        $cycle_array = explode($cycle_vars[ $name ][ 'delimiter' ], $cycle_vars[ $name ][ 'values' ]);
+        $cycle_array = explode($cycle_vars[ $name ][ 'delimiter' ], (string) $cycle_vars[ $name ][ 'values' ]);
     }
     if (!isset($cycle_vars[ $name ][ 'index' ]) || $reset) {
         $cycle_vars[ $name ][ 'index' ] = 0;

@@ -32,10 +32,10 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
      *
      * @throws SmartyException
      */
-    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
+    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null): void
     {
         $uid = '';
-        $sources = array();
+        $sources = [];
         $components = explode('|', $source->name);
         $smarty = &$source->smarty;
         $exists = true;
@@ -65,7 +65,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
      *
      * @param Smarty_Template_Source $source source object
      */
-    public function populateTimestamp(Smarty_Template_Source $source)
+    public function populateTimestamp(Smarty_Template_Source $source): void
     {
         $source->exists = true;
         /* @var \Smarty_Template_Source $_s */
@@ -83,7 +83,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
      * @return string template source
      * @throws SmartyException if source cannot be loaded
      */
-    public function getContent(Smarty_Template_Source $source)
+    public function getContent(Smarty_Template_Source $source): string
     {
         if (!$source->exists) {
             throw new SmartyException("Unable to load template '{$source->type}:{$source->name}'");
@@ -105,7 +105,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
      *
      * @return string resource's basename
      */
-    public function getBasename(Smarty_Template_Source $source)
+    public function getBasename(Smarty_Template_Source $source): string
     {
         return str_replace(':', '.', basename($source->filepath));
     }
@@ -119,7 +119,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
     /**
      * @return bool
      */
-    public function checkTimestamps()
+    public function checkTimestamps(): bool
     {
         return false;
     }

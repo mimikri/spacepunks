@@ -22,7 +22,7 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
      * @var array
      * @see Smarty_Internal_CompileBase
      */
-    public $optional_attributes = array('_any');
+    public $optional_attributes = ['_any'];
 
     /**
      * Compiles code for the execution of a registered function
@@ -36,7 +36,7 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
      * @throws \SmartyCompilerException
      * @throws \SmartyException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter, $tag)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter, $tag): string
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
@@ -51,7 +51,7 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
         // not cacheable?
         $compiler->tag_nocache = $compiler->tag_nocache || !$tag_info[ 1 ];
         // convert attributes into parameter array string
-        $_paramsArray = array();
+        $_paramsArray = [];
         foreach ($_attr as $_key => $_value) {
             if (is_int($_key)) {
                 $_paramsArray[] = "$_key=>$_value";
@@ -78,11 +78,8 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
         if (!empty($parameter[ 'modifierlist' ])) {
             $output = $compiler->compileTag(
                 'private_modifier',
-                array(),
-                array(
-                    'modifierlist' => $parameter[ 'modifierlist' ],
-                    'value'        => $output
-                )
+                [],
+                ['modifierlist' => $parameter[ 'modifierlist' ], 'value'        => $output]
             );
         }
         $output = "<?php echo {$output};?>\n";

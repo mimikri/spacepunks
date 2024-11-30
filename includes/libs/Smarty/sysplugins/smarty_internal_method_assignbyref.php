@@ -22,7 +22,7 @@ class Smarty_Internal_Method_AssignByRef
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */
-    public function assignByRef(Smarty_Internal_Data $data, $tpl_var, &$value, $nocache)
+    public function assignByRef(Smarty_Internal_Data $data, $tpl_var, &$value, $nocache): Smarty_Internal_Data
     {
         if ($tpl_var !== '') {
             $data->tpl_vars[ $tpl_var ] = new Smarty_Variable(null, $nocache);

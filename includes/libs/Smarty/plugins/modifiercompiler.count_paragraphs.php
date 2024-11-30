@@ -19,7 +19,7 @@
  *
  * @return string with compiled code
  */
-function smarty_modifiercompiler_count_paragraphs($params)
+function smarty_modifiercompiler_count_paragraphs(array $params): string
 {
     // count \r or \n characters
     return '(preg_match_all(\'#[\r\n]+#\', ' . $params[ 0 ] . ', $tmp)+1)';

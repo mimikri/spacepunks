@@ -32,7 +32,7 @@ class Smarty_Internal_Method_RegisterClass
      * @return \Smarty|\Smarty_Internal_Template
      * @throws \SmartyException
      */
-    public function registerClass(Smarty_Internal_TemplateBase $obj, $class_name, $class_impl)
+    public function registerClass(Smarty_Internal_TemplateBase $obj, $class_name, $class_impl): Smarty_Internal_TemplateBase
     {
         $smarty = $obj->_getSmartyObj();
         // test if exists

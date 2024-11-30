@@ -17,8 +17,8 @@
  * @link https://github.com/mimikri/spacepunks
  */
  
- if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
-function ShowGiveaway()
+ if (!allowedTo(str_replace([__DIR__, '\\', '/', '.php'], '', __FILE__))) throw new Exception("Permission error!");
+function ShowGiveaway(): void
 {
 	global $LNG, $resource, $reslist;
 	$template	= new template();	
@@ -34,7 +34,7 @@ function ShowGiveaway()
 			exit;
 		}
 		
-		$planetIN	= array();
+		$planetIN	= [];
 		
 		if ($planet) {
 			$planetIN[]	= "'1'";
@@ -44,12 +44,12 @@ function ShowGiveaway()
 			$planetIN[]	= "'3'";
 		} 
 		
-		$data		= array();
+		$data		= [];
 		
 		$DataIDs	= array_merge($reslist['resstype'][1], $reslist['resstype'][3], $reslist['build'], $reslist['tech'], $reslist['fleet'], $reslist['defense'], $reslist['officier']);
 		
-		$logOld		= array();
-		$logNew		= array();
+		$logOld		= [];
+		$logNew		= [];
 		
 		foreach($DataIDs as $ID)
 		{
@@ -84,9 +84,7 @@ function ShowGiveaway()
 		exit;
 	}	
 	
-	$template->assign_vars(array(	
-		'reslist'		=> $reslist
-	));
+	$template->assign_vars(['reslist'		=> $reslist]);
 	$template->show("giveaway.tpl");
 }
 

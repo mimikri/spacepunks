@@ -29,7 +29,7 @@ class Smarty_Internal_Method_UnregisterObject
      *
      * @return \Smarty|\Smarty_Internal_Template
      */
-    public function unregisterObject(Smarty_Internal_TemplateBase $obj, $object_name)
+    public function unregisterObject(Smarty_Internal_TemplateBase $obj, $object_name): Smarty_Internal_TemplateBase
     {
         $smarty = $obj->_getSmartyObj();
         if (isset($smarty->registered_objects[ $object_name ])) {

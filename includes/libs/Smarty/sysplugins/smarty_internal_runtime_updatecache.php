@@ -29,7 +29,7 @@ class Smarty_Internal_Runtime_UpdateCache
      *
      * @throws \Exception
      */
-    public function updateCache(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template, $no_output_filter)
+    public function updateCache(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template, $no_output_filter): void
     {
         ob_start();
         if (!isset($_template->compiled)) {
@@ -68,7 +68,7 @@ class Smarty_Internal_Runtime_UpdateCache
         Smarty_Template_Cached $cached,
         Smarty_Internal_Template $_template,
         $no_output_filter
-    ) {
+    ): void {
         $php_pattern = '/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/';
         $content = ob_get_clean();
         $hash_array = $cached->hashes;
@@ -156,7 +156,7 @@ class Smarty_Internal_Runtime_UpdateCache
      *
      * @return bool success
      */
-    public function write(Smarty_Internal_Template $_template, $content)
+    public function write(Smarty_Internal_Template $_template, $content): bool
     {
         if (!$_template->source->handler->recompiled) {
             $cached = $_template->cached;

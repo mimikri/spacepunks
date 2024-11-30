@@ -16,7 +16,7 @@
  * @return array sequence of unicodes
  * @author Rodney Rehm
  */
-function smarty_mb_to_unicode($string, $encoding = null)
+function smarty_mb_to_unicode($string, $encoding = null): array|false
 {
     if ($encoding) {
         $expanded = mb_convert_encoding($string, 'UTF-32BE', $encoding);

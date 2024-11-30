@@ -22,7 +22,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
      * @var array
      * @see Smarty_Internal_CompileBase
      */
-    public $optional_attributes = array('_any');
+    public $optional_attributes = ['_any'];
 
     /**
      * nesting level
@@ -44,15 +44,15 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
      * @throws \SmartyCompilerException
      * @throws \SmartyException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter, $tag, $function = null)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter, $tag, $function = null): string
     {
-        if (!isset($tag[ 5 ]) || substr($tag, -5) !== 'close') {
+        if (!isset($tag[ 5 ]) || !str_ends_with($tag, 'close')) {
             // opening tag of block plugin
             // check and get attributes
             $_attr = $this->getAttributes($compiler, $args);
             $this->nesting++;
             unset($_attr[ 'nocache' ]);
-            list($callback, $_paramsArray, $callable) = $this->setup($compiler, $_attr, $tag, $function);
+            [$callback, $_paramsArray, $callable] = $this->setup($compiler, $_attr, $tag, $function);
             $_params = 'array(' . implode(',', $_paramsArray) . ')';
             // compile code
             $output = "<?php ";
@@ -65,7 +65,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
             }
             $output .= "\$_smarty_tpl->smarty->_cache['_tag_stack'][] = array('{$tag}', {$_params});\n";
             $output .= "\$_block_repeat=true;\necho {$callback}({$_params}, null, \$_smarty_tpl, \$_block_repeat);\nwhile (\$_block_repeat) {\nob_start();?>";
-            $this->openTag($compiler, $tag, array($_params, $compiler->nocache, $callback));
+            $this->openTag($compiler, $tag, [$_params, $compiler->nocache, $callback]);
             // maybe nocache because of nocache variables or nocache plugin
             $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
         } else {
@@ -74,7 +74,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
                 $compiler->tag_nocache = true;
             }
             // closing tag of block plugin, restore nocache
-            list($_params, $compiler->nocache, $callback) = $this->closeTag($compiler, substr($tag, 0, -5));
+            [$_params, $compiler->nocache, $callback] = $this->closeTag($compiler, substr($tag, 0, -5));
             // compile code
             if (!isset($parameter[ 'modifier_list' ])) {
                 $mod_pre = $mod_post = $mod_content = '';
@@ -85,11 +85,8 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
                 $mod_pre = "ob_start();\n";
                 $mod_post = 'echo ' . $compiler->compileTag(
                         'private_modifier',
-                        array(),
-                        array(
-                            'modifierlist' => $parameter[ 'modifier_list' ],
-                            'value'        => 'ob_get_clean()'
-                        )
+                        [],
+                        ['modifierlist' => $parameter[ 'modifier_list' ], 'value'        => 'ob_get_clean()']
                     ) . ";\n";
             }
             $output =
@@ -109,9 +106,9 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
      *
      * @return array
      */
-    public function setup(Smarty_Internal_TemplateCompilerBase $compiler, $_attr, $tag, $function)
+    public function setup(Smarty_Internal_TemplateCompilerBase $compiler, $_attr, $tag, $function): array
     {
-        $_paramsArray = array();
+        $_paramsArray = [];
         foreach ($_attr as $_key => $_value) {
             if (is_int($_key)) {
                 $_paramsArray[] = "$_key=>$_value";
@@ -119,6 +116,6 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
                 $_paramsArray[] = "'$_key'=>$_value";
             }
         }
-        return array($function, $_paramsArray, null);
+        return [$function, $_paramsArray, null];
     }
 }

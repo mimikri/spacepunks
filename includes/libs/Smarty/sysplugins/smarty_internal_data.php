@@ -31,6 +31,7 @@
  */
 abstract class Smarty_Internal_Data
 {
+    public $smarty;
     /**
      * This object type (Smarty = 1, template = 2, data = 4)
      *
@@ -50,7 +51,7 @@ abstract class Smarty_Internal_Data
      *
      * @var Smarty_Variable[]
      */
-    public $tpl_vars = array();
+    public $tpl_vars = [];
 
     /**
      * parent template (if any)
@@ -64,7 +65,7 @@ abstract class Smarty_Internal_Data
      *
      * @var string[]
      */
-    public $config_vars = array();
+    public $config_vars = [];
 
     /**
      * extension handler
@@ -94,7 +95,7 @@ abstract class Smarty_Internal_Data
      * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for
      *                              chaining
      */
-    public function assign($tpl_var, $value = null, $nocache = false)
+    public function assign($tpl_var, mixed $value = null, $nocache = false)
     {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $_key => $_val) {
@@ -131,7 +132,7 @@ abstract class Smarty_Internal_Data
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */
-    public function append($tpl_var, $value = null, $merge = false, $nocache = false)
+    public function append($tpl_var, mixed $value = null, $merge = false, $nocache = false)
     {
         return $this->ext->append->append($this, $tpl_var, $value, $merge, $nocache);
     }
@@ -145,7 +146,7 @@ abstract class Smarty_Internal_Data
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */
-    public function assignGlobal($varName, $value = null, $nocache = false)
+    public function assignGlobal($varName, mixed $value = null, $nocache = false)
     {
         return $this->ext->assignGlobal->assignGlobal($this, $varName, $value, $nocache);
     }
@@ -159,7 +160,7 @@ abstract class Smarty_Internal_Data
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */
-    public function appendByRef($tpl_var, &$value, $merge = false)
+    public function appendByRef($tpl_var, mixed &$value, $merge = false)
     {
         return $this->ext->appendByRef->appendByRef($this, $tpl_var, $value, $merge);
     }
@@ -200,7 +201,7 @@ abstract class Smarty_Internal_Data
      *
      * @param \Smarty_Internal_Data|null $data
      */
-    public function _mergeVars(Smarty_Internal_Data $data = null)
+    public function _mergeVars(Smarty_Internal_Data $data = null): void
     {
         if (isset($data)) {
             if (!empty($this->tpl_vars)) {
@@ -265,7 +266,7 @@ abstract class Smarty_Internal_Data
      *
      * @return mixed
      */
-    public function __call($name, $args)
+    public function __call($name, array $args)
     {
         return $this->ext->_callExternalMethod($this, $name, $args);
     }

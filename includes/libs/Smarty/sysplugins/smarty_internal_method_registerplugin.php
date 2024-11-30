@@ -41,8 +41,8 @@ class Smarty_Internal_Method_RegisterPlugin
         $name,
         $callback,
         $cacheable = true,
-        $cache_attr = null
-    ) {
+        mixed $cache_attr = null
+    ): Smarty_Internal_TemplateBase {
         $smarty = $obj->_getSmartyObj();
         if (isset($smarty->registered_plugins[ $type ][ $name ])) {
             throw new SmartyException("Plugin tag '{$name}' already registered");
@@ -51,7 +51,7 @@ class Smarty_Internal_Method_RegisterPlugin
         } elseif ($cacheable && $cache_attr) {
             throw new SmartyException("Cannot set caching attributes for plugin '{$name}' when it is cacheable.");
         } else {
-            $smarty->registered_plugins[ $type ][ $name ] = array($callback, (bool)$cacheable, (array)$cache_attr);
+            $smarty->registered_plugins[ $type ][ $name ] = [$callback, (bool)$cacheable, (array)$cache_attr];
         }
         return $obj;
     }

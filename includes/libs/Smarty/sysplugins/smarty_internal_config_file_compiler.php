@@ -18,20 +18,6 @@
 class Smarty_Internal_Config_File_Compiler
 {
     /**
-     * Lexer class name
-     *
-     * @var string
-     */
-    public $lexer_class;
-
-    /**
-     * Parser class name
-     *
-     * @var string
-     */
-    public $parser_class;
-
-    /**
      * Lexer object
      *
      * @var object
@@ -64,7 +50,7 @@ class Smarty_Internal_Config_File_Compiler
      *
      * @var array
      */
-    public $config_data = array();
+    public $config_data = [];
 
     /**
      * compiled config data must always be written
@@ -80,15 +66,18 @@ class Smarty_Internal_Config_File_Compiler
      * @param string $parser_class class name
      * @param Smarty $smarty       global instance
      */
-    public function __construct($lexer_class, $parser_class, Smarty $smarty)
+    public function __construct(/**
+     * Lexer class name
+     */
+    public $lexer_class, /**
+     * Parser class name
+     */
+    public $parser_class, Smarty $smarty)
     {
         $this->smarty = $smarty;
-        // get required plugins
-        $this->lexer_class = $lexer_class;
-        $this->parser_class = $parser_class;
         $this->smarty = $smarty;
-        $this->config_data[ 'sections' ] = array();
-        $this->config_data[ 'vars' ] = array();
+        $this->config_data[ 'sections' ] = [];
+        $this->config_data[ 'vars' ] = [];
     }
 
     /**
@@ -99,15 +88,11 @@ class Smarty_Internal_Config_File_Compiler
      * @return bool true if compiling succeeded, false if it failed
      * @throws \SmartyException
      */
-    public function compileTemplate(Smarty_Internal_Template $template)
+    public function compileTemplate(Smarty_Internal_Template $template): string
     {
         $this->template = $template;
         $this->template->compiled->file_dependency[ $this->template->source->uid ] =
-            array(
-                $this->template->source->filepath,
-                $this->template->source->getTimeStamp(),
-                $this->template->source->type
-            );
+            [$this->template->source->filepath, $this->template->source->getTimeStamp(), $this->template->source->type];
         if ($this->smarty->debugging) {
             if (!isset($this->smarty->_debug)) {
                 $this->smarty->_debug = new Smarty_Internal_Debug();
@@ -118,10 +103,7 @@ class Smarty_Internal_Config_File_Compiler
         /* @var Smarty_Internal_ConfigFileLexer $this->lex */
         $this->lex = new $this->lexer_class(
             str_replace(
-                array(
-                    "\r\n",
-                    "\r"
-                ),
+                ["\r\n", "\r"],
                 "\n",
                 $template->source->getContent()
             ) . "\n",
@@ -178,7 +160,7 @@ class Smarty_Internal_Config_File_Compiler
      *
      * @throws SmartyCompilerException
      */
-    public function trigger_config_file_error($args = null)
+    public function trigger_config_file_error($args = null): void
     {
         // get config source line which has error
         $line = $this->lex->line;

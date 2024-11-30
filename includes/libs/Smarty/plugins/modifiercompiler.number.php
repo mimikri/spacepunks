@@ -17,7 +17,7 @@
  * @return string with compiled code
  */
 
-function smarty_modifiercompiler_number($params, $compiler)
+function smarty_modifiercompiler_number(array $params, $compiler): string
 {
 	return 'pretty_number(' . $params[0] . ')';
 }

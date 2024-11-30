@@ -18,10 +18,8 @@ class Smarty_Internal_Runtime_Capture
 
     /**
      * Stack of capture parameter
-     *
-     * @var array
      */
-    private $captureStack = array();
+    private array $captureStack = [];
 
     /**
      * Current open capture sections
@@ -35,21 +33,19 @@ class Smarty_Internal_Runtime_Capture
      *
      * @var int[]
      */
-    private $countStack = array();
+    private array $countStack = [];
 
     /**
      * Named buffer
      *
      * @var string[]
      */
-    private $namedBuffer = array();
+    private array $namedBuffer = [];
 
     /**
      * Flag if callbacks are registered
-     *
-     * @var bool
      */
-    private $isRegistered = false;
+    private bool $isRegistered = false;
 
     /**
      * Open capture section
@@ -59,16 +55,12 @@ class Smarty_Internal_Runtime_Capture
      * @param string                    $assign variable name
      * @param string                    $append variable name
      */
-    public function open(Smarty_Internal_Template $_template, $buffer, $assign, $append)
+    public function open(Smarty_Internal_Template $_template, $buffer, $assign, $append): void
     {
         if (!$this->isRegistered) {
             $this->register($_template);
         }
-        $this->captureStack[] = array(
-            $buffer,
-            $assign,
-            $append
-        );
+        $this->captureStack[] = [$buffer, $assign, $append];
         $this->captureCount++;
         ob_start();
     }
@@ -78,16 +70,10 @@ class Smarty_Internal_Runtime_Capture
      *
      * @param \Smarty_Internal_Template $_template
      */
-    private function register(Smarty_Internal_Template $_template)
+    private function register(Smarty_Internal_Template $_template): void
     {
-        $_template->startRenderCallbacks[] = array(
-            $this,
-            'startRender'
-        );
-        $_template->endRenderCallbacks[] = array(
-            $this,
-            'endRender'
-        );
+        $_template->startRenderCallbacks[] = $this->startRender(...);
+        $_template->endRenderCallbacks[] = $this->endRender(...);
         $this->startRender($_template);
         $this->isRegistered = true;
     }
@@ -97,7 +83,7 @@ class Smarty_Internal_Runtime_Capture
      *
      * @param \Smarty_Internal_Template $_template
      */
-    public function startRender(Smarty_Internal_Template $_template)
+    public function startRender(Smarty_Internal_Template $_template): void
     {
         $this->countStack[] = $this->captureCount;
         $this->captureCount = 0;
@@ -110,10 +96,10 @@ class Smarty_Internal_Runtime_Capture
      *
      * @throws \SmartyException
      */
-    public function close(Smarty_Internal_Template $_template)
+    public function close(Smarty_Internal_Template $_template): void
     {
         if ($this->captureCount) {
-            list($buffer, $assign, $append) = array_pop($this->captureStack);
+            [$buffer, $assign, $append] = array_pop($this->captureStack);
             $this->captureCount--;
             if (isset($assign)) {
                 $_template->assign($assign, ob_get_contents());
@@ -134,7 +120,7 @@ class Smarty_Internal_Runtime_Capture
      *
      * @throws \SmartyException
      */
-    public function error(Smarty_Internal_Template $_template)
+    public function error(Smarty_Internal_Template $_template): never
     {
         throw new SmartyException("Not matching {capture}{/capture} in '{$_template->template_resource}'");
     }
@@ -150,7 +136,7 @@ class Smarty_Internal_Runtime_Capture
     public function getBuffer(Smarty_Internal_Template $_template, $name = null)
     {
         if (isset($name)) {
-            return isset($this->namedBuffer[ $name ]) ? $this->namedBuffer[ $name ] : null;
+            return $this->namedBuffer[ $name ] ?? null;
         } else {
             return $this->namedBuffer;
         }
@@ -163,7 +149,7 @@ class Smarty_Internal_Runtime_Capture
      *
      * @throws \SmartyException
      */
-    public function endRender(Smarty_Internal_Template $_template)
+    public function endRender(Smarty_Internal_Template $_template): void
     {
         if ($this->captureCount) {
             $this->error($_template);

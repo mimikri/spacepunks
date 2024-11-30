@@ -22,7 +22,7 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
      * @var array
      * @see Smarty_Internal_CompileBase
      */
-    public $optional_attributes = array('_any');
+    public $optional_attributes = ['_any'];
 
     /**
      * Compiles code for the execution of function plugin
@@ -37,7 +37,7 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
      * @throws \SmartyCompilerException
      * @throws \SmartyException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter, $tag, $method)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter, $tag, $method): string
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
@@ -48,10 +48,10 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
             unset($_attr[ 'assign' ]);
         }
         // method or property ?
-        if (is_callable(array($compiler->smarty->registered_objects[ $tag ][ 0 ], $method))) {
+        if (is_callable([$compiler->smarty->registered_objects[ $tag ][ 0 ], $method])) {
             // convert attributes into parameter array string
             if ($compiler->smarty->registered_objects[ $tag ][ 2 ]) {
-                $_paramsArray = array();
+                $_paramsArray = [];
                 foreach ($_attr as $_key => $_value) {
                     if (is_int($_key)) {
                         $_paramsArray[] = "$_key=>$_value";
@@ -72,8 +72,8 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
         if (!empty($parameter[ 'modifierlist' ])) {
             $output = $compiler->compileTag(
                 'private_modifier',
-                array(),
-                array('modifierlist' => $parameter[ 'modifierlist' ], 'value' => $output)
+                [],
+                ['modifierlist' => $parameter[ 'modifierlist' ], 'value' => $output]
             );
         }
         if (empty($_assign)) {

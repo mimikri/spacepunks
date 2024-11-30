@@ -16,7 +16,7 @@
  * @version 0.0.1
  * @link https://github.com/mimikri/spacepunks
  */
- 
+
 // If you have custom lang vars, you can include them here. The file ll be not overwrite by updatemanager
 // Also you can overwrite exists var, too. You use the same key.
  

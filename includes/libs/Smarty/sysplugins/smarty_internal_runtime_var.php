@@ -17,10 +17,10 @@ class Smarty_Internal_Runtime_Var
      * @param string                    $varName template variable name
      * @param bool                      $nocache cache mode of variable
      */
-    public function createLocalArrayVariable(Smarty_Internal_Template $tpl, $varName, $nocache = false)
+    public function createLocalArrayVariable(Smarty_Internal_Template $tpl, $varName, $nocache = false): void
     {
         if (!isset($tpl->tpl_vars[$varName])) {
-            $tpl->tpl_vars[$varName] = new Smarty_Variable(array(), $nocache);
+            $tpl->tpl_vars[$varName] = new Smarty_Variable([], $nocache);
         } else {
             $tpl->tpl_vars[$varName] = clone $tpl->tpl_vars[$varName];
             if (!(is_array($tpl->tpl_vars[$varName]->value) ||

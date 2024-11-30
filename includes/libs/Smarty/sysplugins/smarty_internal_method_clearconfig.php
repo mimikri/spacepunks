@@ -29,12 +29,12 @@ class Smarty_Internal_Method_ClearConfig
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */
-    public function clearConfig(Smarty_Internal_Data $data, $name = null)
+    public function clearConfig(Smarty_Internal_Data $data, $name = null): Smarty_Internal_Data
     {
         if (isset($name)) {
             unset($data->config_vars[ $name ]);
         } else {
-            $data->config_vars = array();
+            $data->config_vars = [];
         }
         return $data;
     }

@@ -37,7 +37,7 @@ class SmartyCompilerException extends SmartyException
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return ' --> Smarty Compiler: ' . $this->message . ' <-- ';
     }
@@ -45,7 +45,7 @@ class SmartyCompilerException extends SmartyException
     /**
      * @param int $line
      */
-    public function setLine($line)
+    public function setLine(int $line): void
     {
         $this->line = $line;
     }

@@ -16,14 +16,14 @@ class Smarty_Internal_Runtime_SubTemplate
      *
      * @var Smarty_Internal_Template[]
      */
-    public $tplObjects = array();
+    public $tplObjects = [];
 
     /**
      * Subtemplate call count
      *
      * @var int[]
      */
-    public $subTplInfo = array();
+    public $subTplInfo = [];
 
     /**
      * Runtime function to render subtemplate
@@ -41,8 +41,8 @@ class Smarty_Internal_Runtime_SubTemplate
      * @param string                    $content_func   function name
      *
      */
-    public function render(Smarty_Internal_Template $parent, $template, $cache_id, $compile_id, $caching,
-                           $cache_lifetime, $data, $scope, $forceTplCache, $uid = null, $content_func = null)
+    public function render(Smarty_Internal_Template $parent, $template, mixed $cache_id, mixed $compile_id, $caching,
+                           $cache_lifetime, $data, $scope, $forceTplCache, $uid = null, $content_func = null): void
     {
         // if there are cached template objects calculate $templateID
         $_templateId =
@@ -80,11 +80,9 @@ class Smarty_Internal_Runtime_SubTemplate
                 if (isset($uid)) {
                     // for inline templates we can get all resource information from file dependency
                     if (isset($tpl->compiled->file_dependency[$uid])) {
-                        list($filepath, $timestamp, $resource) = $tpl->compiled->file_dependency[$uid];
+                        [$filepath, $timestamp, $resource] = $tpl->compiled->file_dependency[$uid];
                         $tpl->source =
-                            new Smarty_Template_Source(isset($tpl->smarty->_cache['resource_handlers'][$resource]) ?
-                                                           $tpl->smarty->_cache['resource_handlers'][$resource] :
-                                                           Smarty_Resource::load($tpl->smarty, $resource), $tpl->smarty,
+                            new Smarty_Template_Source($tpl->smarty->_cache['resource_handlers'][$resource] ?? Smarty_Resource::load($tpl->smarty, $resource), $tpl->smarty,
                                                        $filepath, $resource, $filepath);
                         $tpl->source->filepath = $filepath;
                         $tpl->source->timestamp = $timestamp;
@@ -190,7 +188,7 @@ class Smarty_Internal_Runtime_SubTemplate
      *
      * @param \Smarty_Internal_Template $tpl
      */
-    public function registerSubTemplates(Smarty_Internal_Template $tpl)
+    public function registerSubTemplates(Smarty_Internal_Template $tpl): void
     {
         foreach ($tpl->compiled->includes as $name => $count) {
             if (isset($this->subTplInfo[$name])) {

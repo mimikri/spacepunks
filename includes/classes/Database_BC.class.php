@@ -21,7 +21,7 @@ class Database_BC extends mysqli
 {
 	protected $exception;
 
-    private $queryCount = 0;
+    private int $queryCount = 0;
 
 	/**
 	 * Constructor: Set database access data.
@@ -101,7 +101,7 @@ class Database_BC extends mysqli
 	public function countquery($resource)
 	{		
 		$result = $this->query($resource);
-		list($Return) = $result->fetch_array(MYSQLI_NUM);
+		[$Return] = $result->fetch_array(MYSQLI_NUM);
 		$result->close();
 		return $Return;
 	}	
@@ -113,15 +113,15 @@ class Database_BC extends mysqli
 	 * @return resource	Results of the query
 	 */
 
-	public function fetchquery($resource, $encode = array())
+	public function fetchquery($resource, $encode = []): array
 	{		
 		$result = $this->query($resource);
-		$Return	= array();
+		$Return	= [];
 
 		while($Data	= $result->fetch_array(MYSQLI_ASSOC)) {
 			foreach($Data as $Key => $Store) {
 				if(in_array($Key, $encode))
-					$Data[$Key]	= base64_encode($Store);
+					$Data[$Key]	= base64_encode((string) $Store);
 			}
 			$Return[]	= $Data;
 		}
@@ -170,7 +170,7 @@ class Database_BC extends mysqli
 		return $query->num_rows;
 	}
 	
-	public function affectedRows()
+	public function affectedRows(): string|int
 	{
 		return $this->affected_rows;
 	}
@@ -182,7 +182,7 @@ class Database_BC extends mysqli
 	 *
 	 * @return integer	The total row number
 	 */
-	public function GetInsertID()
+	public function GetInsertID(): int|string
 	{
 		return $this->insert_id;
 	}
@@ -205,9 +205,9 @@ class Database_BC extends mysqli
 		return ($flag === false) ? parent::escape_string($string): addcslashes(parent::escape_string($string), '%_');
     }
 	
-	public function str_correction($str)
+	public function str_correction($str): string
 	{
-		return stripcslashes($str);
+		return stripcslashes((string) $str);
 	}
 
 	/**
@@ -215,7 +215,7 @@ class Database_BC extends mysqli
 	 *
 	 * @return string	mysqli-Version
 	 */
-	public function getVersion()
+	public function getVersion(): string
 	{
 		return mysqli_get_client_info();
 	}
@@ -225,7 +225,7 @@ class Database_BC extends mysqli
 	 *
 	 * @return string	mysqli-Version
 	 */
-	public function getServerVersion()
+	public function getServerVersion(): string
 	{
 		return $this->server_info;
 	}
@@ -237,7 +237,7 @@ class Database_BC extends mysqli
 	 *
 	 * @return void
 	 */
-	public function free_result($resource)
+	public function free_result($resource): void
 	{
         $resource->close();
         return;
@@ -264,7 +264,7 @@ class Database_BC extends mysqli
 		}
 	}
 	
-	public function get_sql()
+	public function get_sql(): int
 	{
 		return $this->queryCount;
 	}

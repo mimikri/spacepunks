@@ -42,22 +42,17 @@
  * @return string
  * @throws \SmartyException
  */
-function smarty_function_html_select_date($params, Smarty_Internal_Template $template)
+function smarty_function_html_select_date($params, Smarty_Internal_Template $template): string
 {
     $template->_checkPlugins(
-        array(
-            array(
-                'function' => 'smarty_function_escape_special_chars',
-                'file'     => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php'
-            )
-        )
+        [['function' => 'smarty_function_escape_special_chars', 'file'     => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php']]
     );
     // generate timestamps used for month names only
     static $_month_timestamps = null;
     static $_current_year = null;
     if ($_month_timestamps === null) {
         $_current_year = date('Y');
-        $_month_timestamps = array();
+        $_month_timestamps = [];
         for ($i = 1; $i <= 12; $i++) {
             $_month_timestamps[ $i ] = mktime(0, 0, 0, $i, 1, 2000);
         }
@@ -114,11 +109,11 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
     foreach ($params as $_key => $_value) {
         switch ($_key) {
             case 'time':
-                $$_key = $_value; // we'll handle conversion below
+                ${$_key} = $_value; // we'll handle conversion below
                 break;
             case 'month_names':
                 if (is_array($_value) && count($_value) === 12) {
-                    $$_key = $_value;
+                    ${$_key} = $_value;
                 } else {
                     trigger_error('html_select_date: month_names must be an array of 12 strings', E_USER_NOTICE);
                 }
@@ -149,14 +144,14 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
             case 'month_id':
             case 'day_id':
             case 'year_id':
-                $$_key = (string)$_value;
+                ${$_key} = (string)$_value;
                 break;
             case 'display_days':
             case 'display_months':
             case 'display_years':
             case 'year_as_text':
             case 'reverse_years':
-                $$_key = (bool)$_value;
+                ${$_key} = (bool)$_value;
                 break;
             default:
                 if (!is_array($_value)) {
@@ -179,9 +174,8 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
                          'd' => 'Day'
                      ] as $_elementKey => $_elementName) {
                 $_variableName = '_' . strtolower($_elementName);
-                $$_variableName =
-                    isset($time[$prefix . $_elementName]) ? $time[$prefix . $_elementName] :
-                        date($_elementKey);
+                ${$_variableName} =
+                    $time[$prefix . $_elementName] ?? date($_elementKey);
             }
         } elseif (isset($time[$field_array][$prefix . 'Year'])) {
             // $_REQUEST given
@@ -191,8 +185,7 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
                          'd' => 'Day'
                      ] as $_elementKey => $_elementName) {
                 $_variableName = '_' . strtolower($_elementName);
-                $$_variableName = isset($time[$field_array][$prefix . $_elementName]) ?
-                    $time[$field_array][$prefix . $_elementName] : date($_elementKey);
+                ${$_variableName} = $time[$field_array][$prefix . $_elementName] ?? date($_elementKey);
             }
         } else {
             // no date found, use NOW
@@ -211,12 +204,7 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
         }
     } else {
         $template->_checkPlugins(
-            array(
-                array(
-                    'function' => 'smarty_make_timestamp',
-                    'file'     => SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php'
-                )
-            )
+            [['function' => 'smarty_make_timestamp', 'file'     => SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php']]
         );
         $time = smarty_make_timestamp($time);
         [$_year, $_month, $_day] = explode('-', date('Y-m-d', $time));
@@ -224,20 +212,17 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
 
     // make syntax "+N" or "-N" work with $start_year and $end_year
     // Note preg_match('!^(\+|\-)\s*(\d+)$!', $end_year, $match) is slower than trim+substr
-    foreach (array(
-        'start',
-        'end'
-    ) as $key) {
+    foreach (['start', 'end'] as $key) {
         $key .= '_year';
-        $t = $$key;
+        $t = ${$key};
         if ($t === null) {
-            $$key = (int)$_current_year;
+            ${$key} = (int)$_current_year;
         } elseif ($t[ 0 ] === '+') {
-            $$key = (int)($_current_year + (int)trim(substr($t, 1)));
+            ${$key} = (int)($_current_year + (int)trim(substr((string) $t, 1)));
         } elseif ($t[ 0 ] === '-') {
-            $$key = (int)($_current_year - (int)trim(substr($t, 1)));
+            ${$key} = (int)($_current_year - (int)trim(substr((string) $t, 1)));
         } else {
-            $$key = (int)$$key;
+            ${$key} = (int)${$key};
         }
     }
     // flip for ascending or descending
@@ -265,7 +250,7 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
             if ($year_id !== null || $all_id !== null) {
                 $_html_years .= ' id="' . smarty_function_escape_special_chars(
                         $year_id !== null ?
-                            ($year_id ? $year_id : $_name) :
+                            ($year_id ?: $_name) :
                             ($all_id ? ($all_id . $_name) :
                                 $_name)
                     ) . '"';
@@ -275,7 +260,7 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
             }
             $_html_years .= $_extra . $extra_attrs . '>' . $option_separator;
             if (isset($year_empty) || isset($all_empty)) {
-                $_html_years .= '<option value="">' . (isset($year_empty) ? $year_empty : $all_empty) . '</option>' .
+                $_html_years .= '<option value="">' . ($year_empty ?? $all_empty) . '</option>' .
                                 $option_separator;
             }
             $op = $start_year > $end_year ? -1 : 1;
@@ -300,7 +285,7 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
         if ($month_id !== null || $all_id !== null) {
             $_html_months .= ' id="' . smarty_function_escape_special_chars(
                     $month_id !== null ?
-                        ($month_id ? $month_id : $_name) :
+                        ($month_id ?: $_name) :
                         ($all_id ? ($all_id . $_name) :
                             $_name)
                 ) . '"';
@@ -310,7 +295,7 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
         }
         $_html_months .= $_extra . $extra_attrs . '>' . $option_separator;
         if (isset($month_empty) || isset($all_empty)) {
-            $_html_months .= '<option value="">' . (isset($month_empty) ? $month_empty : $all_empty) . '</option>' .
+            $_html_months .= '<option value="">' . ($month_empty ?? $all_empty) . '</option>' .
                              $option_separator;
         }
         for ($i = 1; $i <= 12; $i++) {
@@ -337,7 +322,7 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
         if ($day_id !== null || $all_id !== null) {
             $_html_days .= ' id="' .
                            smarty_function_escape_special_chars(
-                               $day_id !== null ? ($day_id ? $day_id : $_name) :
+                               $day_id !== null ? ($day_id ?: $_name) :
                                    ($all_id ? ($all_id . $_name) : $_name)
                            ) . '"';
         }
@@ -346,7 +331,7 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
         }
         $_html_days .= $_extra . $extra_attrs . '>' . $option_separator;
         if (isset($day_empty) || isset($all_empty)) {
-            $_html_days .= '<option value="">' . (isset($day_empty) ? $day_empty : $all_empty) . '</option>' .
+            $_html_days .= '<option value="">' . ($day_empty ?? $all_empty) . '</option>' .
                            $option_separator;
         }
         for ($i = 1; $i <= 31; $i++) {

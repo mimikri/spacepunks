@@ -37,7 +37,7 @@ class Smarty_Internal_Method_CompileAllTemplates
         $force_compile = false,
         $time_limit = 0,
         $max_errors = null
-    ) {
+    ): int {
         return $this->compileAll($smarty, $extension, $force_compile, $time_limit, $max_errors);
     }
 
@@ -60,7 +60,7 @@ class Smarty_Internal_Method_CompileAllTemplates
         $time_limit,
         $max_errors,
         $isConfig = false
-    ) {
+    ): int {
         // switch off time limit
         if (function_exists('set_time_limit')) {
             @set_time_limit($time_limit);
@@ -78,21 +78,21 @@ class Smarty_Internal_Method_CompileAllTemplates
             $_dir_2 = new RecursiveIteratorIterator($_dir_1);
             foreach ($_dir_2 as $_fileinfo) {
                 $_file = $_fileinfo->getFilename();
-                if (substr(basename($_fileinfo->getPathname()), 0, 1) === '.' || strpos($_file, '.svn') !== false) {
+                if (str_starts_with(basename((string) $_fileinfo->getPathname()), '.') || str_contains((string) $_file, '.svn')) {
                     continue;
                 }
-                if (substr_compare($_file, $extension, -strlen($extension)) !== 0) {
+                if (!str_ends_with((string) $_file, $extension)) {
                     continue;
                 }
-                if ($_fileinfo->getPath() !== substr($_dir, 0, -1)) {
-                    $_file = substr($_fileinfo->getPath(), strlen($_dir)) . DIRECTORY_SEPARATOR . $_file;
+                if ($_fileinfo->getPath() !== substr((string) $_dir, 0, -1)) {
+                    $_file = substr((string) $_fileinfo->getPath(), strlen((string) $_dir)) . DIRECTORY_SEPARATOR . $_file;
                 }
                 echo "\n<br>", $_dir, '---', $_file;
                 flush();
                 $_start_time = microtime(true);
                 $_smarty = clone $smarty;
                 //
-                $_smarty->_cache = array();
+                $_smarty->_cache = [];
                 $_smarty->ext = new Smarty_Internal_Extension_Handler();
                 $_smarty->ext->objType = $_smarty->_objType;
                 $_smarty->force_compile = $force_compile;

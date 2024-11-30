@@ -37,11 +37,11 @@ abstract class Smarty_Resource_Recompiled extends Smarty_Resource
      *
      * @throws Exception
      */
-    public function process(Smarty_Internal_Template $_smarty_tpl)
+    public function process(Smarty_Internal_Template $_smarty_tpl): void
     {
         $compiled = &$_smarty_tpl->compiled;
-        $compiled->file_dependency = array();
-        $compiled->includes = array();
+        $compiled->file_dependency = [];
+        $compiled->includes = [];
         $compiled->nocache_hash = null;
         $compiled->unifunc = null;
         $level = ob_get_level();
@@ -72,7 +72,7 @@ abstract class Smarty_Resource_Recompiled extends Smarty_Resource
      *
      * @return void
      */
-    public function populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template)
+    public function populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template): void
     {
         $compiled->filepath = false;
         $compiled->timestamp = false;

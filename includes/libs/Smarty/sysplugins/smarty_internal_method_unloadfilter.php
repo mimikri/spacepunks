@@ -25,7 +25,7 @@ class Smarty_Internal_Method_UnloadFilter extends Smarty_Internal_Method_LoadFil
      * @return Smarty_Internal_TemplateBase
      * @throws \SmartyException
      */
-    public function unloadFilter(Smarty_Internal_TemplateBase $obj, $type, $name)
+    public function unloadFilter(Smarty_Internal_TemplateBase $obj, $type, $name): Smarty_Internal_TemplateBase
     {
         $smarty = $obj->_getSmartyObj();
         $this->_checkFilterType($type);

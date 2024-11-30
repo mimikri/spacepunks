@@ -18,25 +18,12 @@
  */
 class Config
 {
-	protected $configData = array();
-	protected $updateRecords = array();
-	protected static $instances = array();
+	protected $updateRecords = [];
+	protected static $instances = [];
 
 
 	// Global configkeys
-	protected static $globalConfigKeys	= array('VERSION', 'game_name', 'stat', 'stat_level', 'stat_last_update',
-										   'stat_settings', 'stat_update_time', 'stat_last_db_update', 'stats_fly_lock',
-										   'cron_lock', 'ts_modon', 'ts_server', 'ts_tcpport', 'ts_udpport', 'ts_timeout',
-										   'ts_version', 'ts_cron_last', 'ts_cron_interval', 'ts_login', 'ts_password',
-										   'capaktiv', 'cappublic', 'capprivate', 'mail_active', 'mail_use', 'smtp_host',
-										   'smtp_port', 'smtp_user', 'smtp_pass', 'smtp_ssl', 'smtp_sendmail',
-										   'smail_path', 'fb_on', 'fb_apikey', 'fb_skey', 'ga_active', 'ga_key',
-										   'chat_closed', 'chat_allowchan', 'chat_allowmes', 'chat_allowdelmes',
-										   'chat_logmessage', 'chat_nickchange', 'chat_botname', 'chat_channelname',
-										   'chat_socket_active', 'chat_socket_host', 'chat_socket_ip', 'chat_socket_port',
-										   'chat_socket_chatid', 'ttf_file', 'sendmail_inactive', 'del_user_sendmail',
-										   'del_user_automatic', 'del_oldstuff', 'del_user_manually', 'ref_max_referals',
-										   'disclamerAddress','disclamerPhone','disclamerMail','disclamerNotice');
+	protected static $globalConfigKeys	= ['VERSION', 'game_name', 'stat', 'stat_level', 'stat_last_update', 'stat_settings', 'stat_update_time', 'stat_last_db_update', 'stats_fly_lock', 'cron_lock', 'ts_modon', 'ts_server', 'ts_tcpport', 'ts_udpport', 'ts_timeout', 'ts_version', 'ts_cron_last', 'ts_cron_interval', 'ts_login', 'ts_password', 'capaktiv', 'cappublic', 'capprivate', 'mail_active', 'mail_use', 'smtp_host', 'smtp_port', 'smtp_user', 'smtp_pass', 'smtp_ssl', 'smtp_sendmail', 'smail_path', 'fb_on', 'fb_apikey', 'fb_skey', 'ga_active', 'ga_key', 'chat_closed', 'chat_allowchan', 'chat_allowmes', 'chat_allowdelmes', 'chat_logmessage', 'chat_nickchange', 'chat_botname', 'chat_channelname', 'chat_socket_active', 'chat_socket_host', 'chat_socket_ip', 'chat_socket_port', 'chat_socket_chatid', 'ttf_file', 'sendmail_inactive', 'del_user_sendmail', 'del_user_automatic', 'del_oldstuff', 'del_user_manually', 'ref_max_referals', 'disclamerAddress', 'disclamerPhone', 'disclamerMail', 'disclamerNotice'];
 
 	public static function getGlobalConfigKeys()
 	{
@@ -70,12 +57,12 @@ class Config
 		return self::$instances[$universe];
 	}
 
-	static public function reload()
+	static public function reload(): void
 	{
 		self::generateInstances();
 	}
 
-	static private function generateInstances()
+	static private function generateInstances(): void
 	{
 		$db     = Database::get();
 		$configResult = $db->nativeQuery("SELECT * FROM %%CONFIG%%;");
@@ -86,10 +73,9 @@ class Config
 		}
 	}
 
-	public function __construct($configData)
-	{
-		$this->configData = $configData;
-	}
+	public function __construct(protected $configData)
+ {
+ }
 
 	public function __get($key)
 	{
@@ -114,7 +100,7 @@ class Config
 		return isset($this->configData[$key]);
 	}
 
-	public function save($options = NULL)
+	public function save($options = NULL): bool
 	{
 		if (empty($this->updateRecords)) {
 			// Do nothing here.
@@ -123,15 +109,13 @@ class Config
 		
 		if(is_null($options))
 		{
-			$options	= array();
+			$options	= [];
 		}
 		
-		$options	+= array(
-			'noGlobalSave' => false
-		);
+		$options	+= ['noGlobalSave' => false];
 		
-		$updateData = array();
-		$params     = array();
+		$updateData = [];
+		$params     = [];
 		foreach ($this->updateRecords as $columnName) {
 			$updateData[]             = '`' . $columnName . '` = :' . $columnName;
 			$params[':' . $columnName] = $this->configData[$columnName];
@@ -145,7 +129,7 @@ class Config
 					{
 						$config = Config::get();
 						$config->$columnName = $this->configData[$columnName];
-						$config->save(array('noGlobalSave' => true));
+						$config->save(['noGlobalSave' => true]);
 					}
 				}
 			}
@@ -156,11 +140,11 @@ class Config
 		$db     = Database::get();
 		$db->update($sql, $params);
 		
-		$this->updateRecords = array();
+		$this->updateRecords = [];
 		return true;
 	}
 
-	static function getAll()
+	static function getAll(): never
 	{
 		throw new Exception("Config::getAll is deprecated!");
 	}

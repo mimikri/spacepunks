@@ -26,7 +26,7 @@ class ShowChatPage extends AbstractGamePage
 		parent::__construct();
 	}
 	
-	function show() 
+	function show(): void 
 	{
 		$action	= HTTP::_GP('action', '');
 		if($action == 'alliance') {

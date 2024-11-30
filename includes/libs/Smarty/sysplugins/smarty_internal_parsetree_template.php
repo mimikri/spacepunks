@@ -23,7 +23,7 @@ class Smarty_Internal_ParseTree_Template extends Smarty_Internal_ParseTree
      *
      * @var array
      */
-    public $subtrees = array();
+    public $subtrees = [];
 
     /**
      * Create root of parse tree for template elements
@@ -38,7 +38,7 @@ class Smarty_Internal_ParseTree_Template extends Smarty_Internal_ParseTree
      * @param \Smarty_Internal_Templateparser $parser
      * @param Smarty_Internal_ParseTree       $subtree
      */
-    public function append_subtree(Smarty_Internal_Templateparser $parser, Smarty_Internal_ParseTree $subtree)
+    public function append_subtree(Smarty_Internal_Templateparser $parser, Smarty_Internal_ParseTree $subtree): void
     {
         if (!empty($subtree->subtrees)) {
             $this->subtrees = array_merge($this->subtrees, $subtree->subtrees);
@@ -55,7 +55,7 @@ class Smarty_Internal_ParseTree_Template extends Smarty_Internal_ParseTree
      * @param \Smarty_Internal_Templateparser $parser
      * @param \Smarty_Internal_ParseTree[]    $array
      */
-    public function append_array(Smarty_Internal_Templateparser $parser, $array = array())
+    public function append_array(Smarty_Internal_Templateparser $parser, $array = []): void
     {
         if (!empty($array)) {
             $this->subtrees = array_merge($this->subtrees, (array)$array);
@@ -68,7 +68,7 @@ class Smarty_Internal_ParseTree_Template extends Smarty_Internal_ParseTree
      * @param \Smarty_Internal_Templateparser $parser
      * @param \Smarty_Internal_ParseTree[]    $array
      */
-    public function prepend_array(Smarty_Internal_Templateparser $parser, $array = array())
+    public function prepend_array(Smarty_Internal_Templateparser $parser, $array = []): void
     {
         if (!empty($array)) {
             $this->subtrees = array_merge((array)$array, $this->subtrees);
@@ -126,13 +126,16 @@ class Smarty_Internal_ParseTree_Template extends Smarty_Internal_ParseTree
         return $code;
     }
 
-    private function getChunkedSubtrees() {
-        $chunks = array();
+    /**
+     * @return array<mixed, array<'mode'|'subtrees', 'other'|'tag'|'text'|'textstripped'|mixed[]|null>>
+     */
+    private function getChunkedSubtrees(): array {
+        $chunks = [];
         $currentMode = null;
-        $currentChunk = array();
+        $currentChunk = [];
         for ($key = 0, $cnt = count($this->subtrees); $key < $cnt; $key++) {
 
-            if ($this->subtrees[ $key ]->data === '' && in_array($currentMode, array('textstripped', 'text', 'tag'))) {
+            if ($this->subtrees[ $key ]->data === '' && in_array($currentMode, ['textstripped', 'text', 'tag'])) {
                 continue;
             }
 
@@ -150,19 +153,13 @@ class Smarty_Internal_ParseTree_Template extends Smarty_Internal_ParseTree
             if ($newMode == $currentMode) {
                 $currentChunk[] = $this->subtrees[ $key ];
             } else {
-                $chunks[] = array(
-                    'mode' => $currentMode,
-                    'subtrees' => $currentChunk
-                );
+                $chunks[] = ['mode' => $currentMode, 'subtrees' => $currentChunk];
                 $currentMode = $newMode;
-                $currentChunk = array($this->subtrees[ $key ]);
+                $currentChunk = [$this->subtrees[ $key ]];
             }
         }
         if ($currentMode && $currentChunk) {
-            $chunks[] = array(
-                'mode' => $currentMode,
-                'subtrees' => $currentChunk
-            );
+            $chunks[] = ['mode' => $currentMode, 'subtrees' => $currentChunk];
         }
         return $chunks;
     }

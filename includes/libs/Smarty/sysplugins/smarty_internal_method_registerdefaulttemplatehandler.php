@@ -29,7 +29,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
      * @return \Smarty|\Smarty_Internal_Template
      * @throws SmartyException              if $callback is not callable
      */
-    public function registerDefaultTemplateHandler(Smarty_Internal_TemplateBase $obj, $callback)
+    public function registerDefaultTemplateHandler(Smarty_Internal_TemplateBase $obj, $callback): Smarty_Internal_TemplateBase
     {
         $smarty = $obj->_getSmartyObj();
         if (is_callable($callback)) {
@@ -47,7 +47,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
      *
      * @throws \SmartyException
      */
-    public static function _getDefaultTemplate(Smarty_Template_Source $source)
+    public static function _getDefaultTemplate(Smarty_Template_Source $source): void
     {
         if ($source->isConfig) {
             $default_handler = $source->smarty->default_config_handler_func;
@@ -57,7 +57,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
         $_content = $_timestamp = null;
         $_return = call_user_func_array(
             $default_handler,
-            array($source->type, $source->name, &$_content, &$_timestamp, $source->smarty)
+            [$source->type, $source->name, &$_content, &$_timestamp, $source->smarty]
         );
         if (is_string($_return)) {
             $source->exists = is_file($_return);
@@ -75,7 +75,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
         } elseif ($_return === true) {
             $source->content = $_content;
             $source->exists = true;
-            $source->uid = $source->name = sha1($_content);
+            $source->uid = $source->name = sha1((string) $_content);
             $source->handler = Smarty_Resource::load($source->smarty, 'eval');
         } else {
             $source->exists = false;

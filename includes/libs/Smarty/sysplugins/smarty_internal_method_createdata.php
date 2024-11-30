@@ -31,7 +31,7 @@ class Smarty_Internal_Method_CreateData
      *
      * @return \Smarty_Data data object
      */
-    public function createData(Smarty_Internal_TemplateBase $obj, Smarty_Internal_Data $parent = null, $name = null)
+    public function createData(Smarty_Internal_TemplateBase $obj, Smarty_Internal_Data $parent = null, $name = null): \Smarty_Data
     {
         /* @var Smarty $smarty */
         $smarty = $obj->_getSmartyObj();

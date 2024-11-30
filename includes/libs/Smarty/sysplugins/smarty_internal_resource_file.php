@@ -25,7 +25,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      *
      * @throws \SmartyException
      */
-    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
+    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null): void
     {
         $source->filepath = $this->buildFilepath($source, $_template);
         if ($source->filepath !== false) {
@@ -48,7 +48,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      *
      * @param Smarty_Template_Source $source source object
      */
-    public function populateTimestamp(Smarty_Template_Source $source)
+    public function populateTimestamp(Smarty_Template_Source $source): void
     {
         if (!$source->exists) {
             $source->timestamp = $source->exists = is_file($source->filepath);
@@ -66,7 +66,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      * @return string                 template source
      * @throws SmartyException        if source cannot be loaded
      */
-    public function getContent(Smarty_Template_Source $source)
+    public function getContent(Smarty_Template_Source $source): string|false
     {
         if ($source->exists) {
             return file_get_contents($source->filepath);
@@ -84,7 +84,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      *
      * @return string                 resource's basename
      */
-    public function getBasename(Smarty_Template_Source $source)
+    public function getBasename(Smarty_Template_Source $source): string
     {
         return basename($source->filepath);
     }
@@ -122,7 +122,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             return is_file($path) ? $path : false;
         }
         // normalize DIRECTORY_SEPARATOR
-        if (strpos($file, DIRECTORY_SEPARATOR === '/' ? '\\' : '/') !== false) {
+        if (str_contains($file, DIRECTORY_SEPARATOR === '/' ? '\\' : '/')) {
             $file = str_replace(DIRECTORY_SEPARATOR === '/' ? '\\' : '/', DIRECTORY_SEPARATOR, $file);
         }
         $_directories = $source->smarty->getTemplateDir(null, $source->isConfig);
@@ -130,7 +130,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         if ($file[ 0 ] === '[' && preg_match('#^\[([^\]]+)\](.+)$#', $file, $fileMatch)) {
             $file = $fileMatch[ 2 ];
             $_indices = explode(',', $fileMatch[ 1 ]);
-            $_index_dirs = array();
+            $_index_dirs = [];
             foreach ($_indices as $index) {
                 $index = trim($index);
                 // try string indexes
@@ -161,7 +161,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         foreach ($_directories as $_directory) {
             $path = $_directory . $file;
             if (is_file($path)) {
-                return (strpos($path, '.' . DIRECTORY_SEPARATOR) !== false) ? $source->smarty->_realpath($path) : $path;
+                return (str_contains($path, '.' . DIRECTORY_SEPARATOR)) ? $source->smarty->_realpath($path) : $path;
             }
         }
         if (!isset($_index_dirs)) {

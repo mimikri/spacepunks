@@ -27,14 +27,14 @@ class Smarty_Internal_Runtime_CodeFrame
      */
     public function create(
         Smarty_Internal_Template $_template,
-        $content = '',
-        $functions = '',
+        string $content = '',
+        string $functions = '',
         $cache = false,
         Smarty_Internal_TemplateCompilerBase $compiler = null
-    ) {
+    ): string {
         // build property code
         $properties[ 'version' ] = Smarty::SMARTY_VERSION;
-        $properties[ 'unifunc' ] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
+        $properties[ 'unifunc' ] = 'content_' . str_replace(['.', ','], '_', uniqid('', true));
         if (!$cache) {
             $properties[ 'has_nocache_code' ] = $_template->compiled->has_nocache_code;
             $properties[ 'file_dependency' ] = $_template->compiled->file_dependency;

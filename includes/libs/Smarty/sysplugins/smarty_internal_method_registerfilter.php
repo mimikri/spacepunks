@@ -20,10 +20,8 @@ class Smarty_Internal_Method_RegisterFilter
 
     /**
      * Valid filter types
-     *
-     * @var array
      */
-    private $filterTypes = array('pre' => true, 'post' => true, 'output' => true, 'variable' => true);
+    private array $filterTypes = ['pre' => true, 'post' => true, 'output' => true, 'variable' => true];
 
     /**
      * Registers a filter function
@@ -40,11 +38,11 @@ class Smarty_Internal_Method_RegisterFilter
      * @return \Smarty|\Smarty_Internal_Template
      * @throws \SmartyException
      */
-    public function registerFilter(Smarty_Internal_TemplateBase $obj, $type, $callback, $name = null)
+    public function registerFilter(Smarty_Internal_TemplateBase $obj, $type, $callback, $name = null): Smarty_Internal_TemplateBase
     {
         $smarty = $obj->_getSmartyObj();
         $this->_checkFilterType($type);
-        $name = isset($name) ? $name : $this->_getFilterName($callback);
+        $name ??= $this->_getFilterName($callback);
         if (!is_callable($callback)) {
             throw new SmartyException("{$type}filter '{$name}' not callable");
         }
@@ -59,10 +57,10 @@ class Smarty_Internal_Method_RegisterFilter
      *
      * @return string   internal filter name
      */
-    public function _getFilterName($function_name)
+    public function _getFilterName($function_name): string
     {
         if (is_array($function_name)) {
-            $_class_name = (is_object($function_name[ 0 ]) ? get_class($function_name[ 0 ]) : $function_name[ 0 ]);
+            $_class_name = (is_object($function_name[ 0 ]) ? $function_name[ 0 ]::class : $function_name[ 0 ]);
             return $_class_name . '_' . $function_name[ 1 ];
         } elseif (is_string($function_name)) {
             return $function_name;
@@ -78,7 +76,7 @@ class Smarty_Internal_Method_RegisterFilter
      *
      * @throws \SmartyException
      */
-    public function _checkFilterType($type)
+    public function _checkFilterType($type): void
     {
         if (!isset($this->filterTypes[ $type ])) {
             throw new SmartyException("Illegal filter type '{$type}'");

@@ -34,15 +34,10 @@
  * @uses   smarty_function_escape_special_chars()
  * @throws \SmartyException
  */
-function smarty_function_html_options($params, Smarty_Internal_Template $template)
+function smarty_function_html_options($params, Smarty_Internal_Template $template): string
 {
     $template->_checkPlugins(
-        array(
-            array(
-                'function' => 'smarty_function_escape_special_chars',
-                'file'     => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php'
-            )
-        )
+        [['function' => 'smarty_function_escape_special_chars', 'file'     => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php']]
     );
     $name = null;
     $values = null;
@@ -57,18 +52,18 @@ function smarty_function_html_options($params, Smarty_Internal_Template $templat
             case 'name':
             case 'class':
             case 'id':
-                $$_key = (string)$_val;
+                ${$_key} = (string)$_val;
                 break;
             case 'options':
                 $options = (array)$_val;
                 break;
             case 'values':
             case 'output':
-                $$_key = array_values((array)$_val);
+                ${$_key} = array_values((array)$_val);
                 break;
             case 'selected':
                 if (is_array($_val)) {
-                    $selected = array();
+                    $selected = [];
                     foreach ($_val as $_sel) {
                         if (is_object($_sel)) {
                             if (method_exists($_sel, '__toString')) {
@@ -76,7 +71,7 @@ function smarty_function_html_options($params, Smarty_Internal_Template $templat
                             } else {
                                 trigger_error(
                                     'html_options: selected attribute contains an object of class \'' .
-                                    get_class($_sel) . '\' without __toString() method',
+                                    $_sel::class . '\' without __toString() method',
                                     E_USER_NOTICE
                                 );
                                 continue;
@@ -91,7 +86,7 @@ function smarty_function_html_options($params, Smarty_Internal_Template $templat
                         $selected = smarty_function_escape_special_chars((string)$_val->__toString());
                     } else {
                         trigger_error(
-                            'html_options: selected attribute is an object of class \'' . get_class($_val) .
+                            'html_options: selected attribute is an object of class \'' . $_val::class .
                             '\' without __toString() method',
                             E_USER_NOTICE
                         );
@@ -139,7 +134,7 @@ function smarty_function_html_options($params, Smarty_Internal_Template $templat
         }
     } else {
         foreach ($values as $_i => $_key) {
-            $_val = isset($output[ $_i ]) ? $output[ $_i ] : '';
+            $_val = $output[ $_i ] ?? '';
             $_html_result .= smarty_function_html_options_optoutput($_key, $_val, $selected, $id, $class, $_idx);
         }
     }
@@ -163,7 +158,7 @@ function smarty_function_html_options($params, Smarty_Internal_Template $templat
  *
  * @return string
  */
-function smarty_function_html_options_optoutput($key, $value, $selected, $id, $class, &$idx)
+function smarty_function_html_options_optoutput($key, $value, $selected, ?string $id, ?string $class, string &$idx): string
 {
     if (!is_array($value)) {
         $_key = smarty_function_escape_special_chars($key);
@@ -182,7 +177,7 @@ function smarty_function_html_options_optoutput($key, $value, $selected, $id, $c
                 $value = smarty_function_escape_special_chars((string)$value->__toString());
             } else {
                 trigger_error(
-                    'html_options: value is an object of class \'' . get_class($value) .
+                    'html_options: value is an object of class \'' . $value::class .
                     '\' without __toString() method',
                     E_USER_NOTICE
                 );
@@ -219,7 +214,7 @@ function smarty_function_html_options_optoutput($key, $value, $selected, $id, $c
  *
  * @return string
  */
-function smarty_function_html_options_optgroup($key, $values, $selected, $id, $class, &$idx)
+function smarty_function_html_options_optgroup($key, $values, $selected, $id, $class, &$idx): string
 {
     $optgroup_html = '<optgroup label="' . smarty_function_escape_special_chars($key) . '">' . "\n";
     foreach ($values as $key => $value) {

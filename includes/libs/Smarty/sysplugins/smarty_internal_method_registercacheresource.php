@@ -34,7 +34,7 @@ class Smarty_Internal_Method_RegisterCacheResource
         Smarty_Internal_TemplateBase $obj,
         $name,
         Smarty_CacheResource $resource_handler
-    ) {
+    ): Smarty_Internal_TemplateBase {
         $smarty = $obj->_getSmartyObj();
         $smarty->registered_cache_resources[ $name ] = $resource_handler;
         return $obj;

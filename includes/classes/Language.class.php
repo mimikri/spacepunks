@@ -18,9 +18,9 @@
  */
 
 class Language implements ArrayAccess {
-    private $container = array();
-    private $language = array();
-    static private $allLanguages = array();
+    private array $container = [];
+    private array $language = [];
+    static private $allLanguages = [];
 	
 	static function getAllowedLangs($OnlyKey = true)
 	{
@@ -61,7 +61,7 @@ class Language implements ArrayAccess {
             return false;
         }
 
-        $accepted_languages = preg_split('/,\s*/', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        $accepted_languages = preg_split('/,\s*/', (string) $_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
         $language = $this->getLanguage();
 
@@ -74,7 +74,7 @@ class Language implements ArrayAccess {
 				continue;
 			}
 
-            list($code)	= explode('-', strtolower($matches[1]));
+            [$code]	= explode('-', strtolower($matches[1]));
 
 			if(in_array($code, self::getAllowedLangs()))
 			{
@@ -94,7 +94,7 @@ class Language implements ArrayAccess {
 		$this->setLanguage($language);
     }
 	
-    public function setLanguage($language)
+    public function setLanguage($language): void
 	{
 		if(!is_null($language) && in_array($language, self::getAllowedLangs()))
 		{
@@ -110,16 +110,16 @@ class Language implements ArrayAccess {
 		}
     }
 	
-    public function addData($data) {
+    public function addData($data): void {
 		$this->container = array_replace_recursive($this->container, $data);
     }
 	
-	public function getLanguage()
+	public function getLanguage(): array
 	{
 		return $this->language;
 	}
 	
-	public function getTemplate($templateName)
+	public function getTemplate(string $templateName): string|false
 	{
 		if(file_exists('language/'.$this->getLanguage().'/templates/'.$templateName.'.txt'))
 		{
@@ -131,11 +131,11 @@ class Language implements ArrayAccess {
 		}
 	}
 	
-	public function includeData($files)
+	public function includeData($files): void
 	{
 		// Fixed BOM problems.
 		ob_start();
-		$LNG	= array();
+		$LNG	= [];
 
 		$path	= 'language/'.$this->getLanguage().'/';
 
@@ -174,6 +174,6 @@ class Language implements ArrayAccess {
     }
 	
     public function offsetGet($offset): mixed {
-        return isset($this->container[$offset]) ? $this->container[$offset] : $offset;
+        return $this->container[$offset] ?? $offset;
     }
 }

@@ -17,7 +17,7 @@
  * @return string with compiled code
  */
 
-function smarty_modifiercompiler_json($params, $compiler)
+function smarty_modifiercompiler_json(array $params, $compiler): string
 {
 	return 'json_encode(' . $params[0] . ')';
 }

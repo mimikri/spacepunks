@@ -33,7 +33,7 @@ class Smarty_Internal_Method_Append
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */
-    public function append(Smarty_Internal_Data $data, $tpl_var, $value = null, $merge = false, $nocache = false)
+    public function append(Smarty_Internal_Data $data, $tpl_var, mixed $value = null, $merge = false, $nocache = false): Smarty_Internal_Data
     {
         if (is_array($tpl_var)) {
             // $tpl_var is an array, ignore $value

@@ -22,7 +22,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
      * @var array
      * @see Smarty_Internal_CompileBase
      */
-    public $required_attributes = array('name');
+    public $required_attributes = ['name'];
 
     /**
      * Attribute definition: Overwrites base class.
@@ -30,7 +30,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
      * @var array
      * @see Smarty_Internal_CompileBase
      */
-    public $shorttag_order = array('name');
+    public $shorttag_order = ['name'];
 
     /**
      * Attribute definition: Overwrites base class.
@@ -38,7 +38,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
      * @var array
      * @see Smarty_Internal_CompileBase
      */
-    public $optional_attributes = array('_any');
+    public $optional_attributes = ['_any'];
 
     /**
      * Compiles code for the {insert} tag
@@ -50,7 +50,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
      * @throws \SmartyCompilerException
      * @throws \SmartyException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler): string
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
@@ -70,7 +70,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
             // output will be stored in a smarty variable instead of being displayed
             $_assign = $_attr[ 'assign' ];
             // create variable to make sure that the compiler knows about its nocache status
-            $var = trim($_attr[ 'assign' ], '\'');
+            $var = trim((string) $_attr[ 'assign' ], '\'');
             if (isset($compiler->template->tpl_vars[ $var ])) {
                 $compiler->template->tpl_vars[ $var ]->nocache = true;
             } else {
@@ -132,7 +132,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
         // delete {insert} standard attributes
         unset($_attr[ 'name' ], $_attr[ 'assign' ], $_attr[ 'script' ], $_attr[ 'nocache' ]);
         // convert attributes into parameter array string
-        $_paramsArray = array();
+        $_paramsArray = [];
         foreach ($_attr as $_key => $_value) {
             $_paramsArray[] = "'$_key' => $_value";
         }

@@ -21,7 +21,7 @@ require_once 'includes/classes/cronjob/CronjobTask.interface.php';
 
 class StatisticCronjob implements CronjobTask
 {
-	function run()
+	function run(): void
 	{
 		require 'includes/classes/class.statbuilder.php';
 		$stat	= new Statbuilder();

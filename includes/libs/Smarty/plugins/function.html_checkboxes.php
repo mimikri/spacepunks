@@ -45,17 +45,12 @@
 function smarty_function_html_checkboxes($params, Smarty_Internal_Template $template)
 {
     $template->_checkPlugins(
-        array(
-            array(
-                'function' => 'smarty_function_escape_special_chars',
-                'file'     => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php'
-            )
-        )
+        [['function' => 'smarty_function_escape_special_chars', 'file'     => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php']]
     );
     $name = 'checkbox';
     $values = null;
     $options = null;
-    $selected = array();
+    $selected = [];
     $separator = '';
     $escape = true;
     $labels = true;
@@ -66,24 +61,24 @@ function smarty_function_html_checkboxes($params, Smarty_Internal_Template $temp
         switch ($_key) {
             case 'name':
             case 'separator':
-                $$_key = (string)$_val;
+                ${$_key} = (string)$_val;
                 break;
             case 'escape':
             case 'labels':
             case 'label_ids':
-                $$_key = (bool)$_val;
+                ${$_key} = (bool)$_val;
                 break;
             case 'options':
-                $$_key = (array)$_val;
+                ${$_key} = (array)$_val;
                 break;
             case 'values':
             case 'output':
-                $$_key = array_values((array)$_val);
+                ${$_key} = array_values((array)$_val);
                 break;
             case 'checked':
             case 'selected':
                 if (is_array($_val)) {
-                    $selected = array();
+                    $selected = [];
                     foreach ($_val as $_sel) {
                         if (is_object($_sel)) {
                             if (method_exists($_sel, '__toString')) {
@@ -91,7 +86,7 @@ function smarty_function_html_checkboxes($params, Smarty_Internal_Template $temp
                             } else {
                                 trigger_error(
                                     'html_checkboxes: selected attribute contains an object of class \'' .
-                                    get_class($_sel) . '\' without __toString() method',
+                                    $_sel::class . '\' without __toString() method',
                                     E_USER_NOTICE
                                 );
                                 continue;
@@ -106,7 +101,7 @@ function smarty_function_html_checkboxes($params, Smarty_Internal_Template $temp
                         $selected = smarty_function_escape_special_chars((string)$_val->__toString());
                     } else {
                         trigger_error(
-                            'html_checkboxes: selected attribute is an object of class \'' . get_class($_val) .
+                            'html_checkboxes: selected attribute is an object of class \'' . $_val::class .
                             '\' without __toString() method',
                             E_USER_NOTICE
                         );
@@ -154,7 +149,7 @@ function smarty_function_html_checkboxes($params, Smarty_Internal_Template $temp
     if (!isset($options) && !isset($values)) {
         return '';
     } /* raise error here? */
-    $_html_result = array();
+    $_html_result = [];
     if (isset($options)) {
         foreach ($options as $_key => $_val) {
             $_html_result[] =
@@ -172,7 +167,7 @@ function smarty_function_html_checkboxes($params, Smarty_Internal_Template $temp
         }
     } else {
         foreach ($values as $_i => $_key) {
-            $_val = isset($output[ $_i ]) ? $output[ $_i ] : '';
+            $_val = $output[ $_i ] ?? '';
             $_html_result[] =
                 smarty_function_html_checkboxes_output(
                     $name,
@@ -212,19 +207,19 @@ function smarty_function_html_checkboxes_output(
     $value,
     $output,
     $selected,
-    $extra,
-    $separator,
+    string $extra,
+    string $separator,
     $labels,
     $label_ids,
     $escape = true
-) {
+): string {
     $_output = '';
     if (is_object($value)) {
         if (method_exists($value, '__toString')) {
             $value = (string)$value->__toString();
         } else {
             trigger_error(
-                'html_options: value is an object of class \'' . get_class($value) .
+                'html_options: value is an object of class \'' . $value::class .
                 '\' without __toString() method',
                 E_USER_NOTICE
             );
@@ -238,7 +233,7 @@ function smarty_function_html_checkboxes_output(
             $output = (string)$output->__toString();
         } else {
             trigger_error(
-                'html_options: output is an object of class \'' . get_class($output) .
+                'html_options: output is an object of class \'' . $output::class .
                 '\' without __toString() method',
                 E_USER_NOTICE
             );

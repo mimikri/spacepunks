@@ -15,7 +15,7 @@
  *
  * @return int
  */
-function smarty_make_timestamp($string)
+function smarty_make_timestamp($string): int|false
 {
     if (empty($string)) {
         // use "now":

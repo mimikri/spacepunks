@@ -45,7 +45,7 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
      * @param Smarty_Template_Source   $source    source object
      * @param Smarty_Internal_Template $_template template object
      */
-    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
+    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null): void
     {
         $source->filepath = $source->type . ':' . $this->generateSafeName($source->name);
         $source->uid = sha1($source->type . ':' . $source->name);
@@ -54,7 +54,7 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
             $source->timestamp = $mtime;
         } else {
             $this->fetch($source->name, $content, $timestamp);
-            $source->timestamp = isset($timestamp) ? $timestamp : false;
+            $source->timestamp = $timestamp ?? false;
             if (isset($content)) {
                 $source->content = $content;
             }
@@ -99,6 +99,6 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
      * @return string
      */
     private function generateSafeName($name): string {
-        return substr(preg_replace('/[^A-Za-z0-9._]/', '', (string) $name), 0, 127);
+        return substr((string) preg_replace('/[^A-Za-z0-9._]/', '', (string) $name), 0, 127);
     }
 }

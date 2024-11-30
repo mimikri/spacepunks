@@ -24,7 +24,7 @@ class Smarty_Internal_Method_AppendByRef
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */
-    public static function appendByRef(Smarty_Internal_Data $data, $tpl_var, &$value, $merge = false)
+    public static function appendByRef(Smarty_Internal_Data $data, $tpl_var, mixed &$value, $merge = false): Smarty_Internal_Data
     {
         if ($tpl_var !== '' && isset($value)) {
             if (!isset($data->tpl_vars[ $tpl_var ])) {

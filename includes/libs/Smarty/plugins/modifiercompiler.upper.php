@@ -18,10 +18,10 @@
  *
  * @return string with compiled code
  */
-function smarty_modifiercompiler_upper($params)
+function smarty_modifiercompiler_upper(array $params): string
 {
     if (Smarty::$_MBSTRING) {
-        return 'mb_strtoupper(' . $params[ 0 ] . ' ?? \'\', \'' . addslashes(Smarty::$_CHARSET) . '\')';
+        return 'mb_strtoupper(' . $params[ 0 ] . ' ?? \'\', \'' . addslashes((string) Smarty::$_CHARSET) . '\')';
     }
     // no MBString fallback
     return 'strtoupper(' . $params[ 0 ] . ' ?? \'\')';

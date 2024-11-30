@@ -29,7 +29,7 @@ class Smarty_Internal_Method_ClearAssign
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */
-    public function clearAssign(Smarty_Internal_Data $data, $tpl_var)
+    public function clearAssign(Smarty_Internal_Data $data, $tpl_var): Smarty_Internal_Data
     {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $curr_var) {

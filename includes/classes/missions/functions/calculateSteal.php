@@ -17,7 +17,7 @@
  * @link https://github.com/mimikri/spacepunks
  */
 
-function calculateSteal($attackFleets, $defenderPlanet, $simulate = false)
+function calculateSteal($attackFleets, array $defenderPlanet, $simulate = false): array
 {	
 	// See: http://www.owiki.de/Beute
 	global $pricelist, $resource;
@@ -26,14 +26,10 @@ function calculateSteal($attackFleets, $defenderPlanet, $simulate = false)
 	$secondResource	= 902;
 	$thirdResource	= 903;
 	
-	$SortFleets 	= array();
+	$SortFleets 	= [];
 	$capacity  	= 0;
 	
-	$stealResource	= array(
-		$firstResource => 0,
-		$secondResource => 0,
-		$thirdResource => 0
-	);
+	$stealResource	= [$firstResource => 0, $secondResource => 0, $thirdResource => 0];
 	
 	foreach($attackFleets as $FleetID => $Attacker)
 	{
@@ -95,9 +91,7 @@ function calculateSteal($attackFleets, $defenderPlanet, $simulate = false)
 		`fleet_resource_deuterium` = `fleet_resource_deuterium` + '".($stealResource[$thirdResource] * $slotFactor)."'
 		WHERE fleet_id = :fleetId;";
 
-		$db->update($sql, array(
-			':fleetId'	=> $FleetID,
-	  	));
+		$db->update($sql, [':fleetId'	=> $FleetID]);
 	}
 	
 	return $stealResource;

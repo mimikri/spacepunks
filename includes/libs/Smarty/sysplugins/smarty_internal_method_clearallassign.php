@@ -28,9 +28,9 @@ class Smarty_Internal_Method_ClearAllAssign
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */
-    public function clearAllAssign(Smarty_Internal_Data $data)
+    public function clearAllAssign(Smarty_Internal_Data $data): Smarty_Internal_Data
     {
-        $data->tpl_vars = array();
+        $data->tpl_vars = [];
         return $data;
     }
 }

@@ -32,13 +32,6 @@ class Smarty_Data extends Smarty_Internal_Data
     public $dataObjectName = '';
 
     /**
-     * Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty = null;
-
-    /**
      * create Smarty data object
      *
      * @param Smarty|array                    $_parent parent template
@@ -47,12 +40,14 @@ class Smarty_Data extends Smarty_Internal_Data
      *
      * @throws SmartyException
      */
-    public function __construct($_parent = null, $smarty = null, $name = null)
+    public function __construct($_parent = null, /**
+     * Smarty object
+     */
+    public $smarty = null, $name = null)
     {
         parent::__construct();
         self::$count++;
         $this->dataObjectName = 'Data_object ' . (isset($name) ? "'{$name}'" : self::$count);
-        $this->smarty = $smarty;
         if (is_object($_parent)) {
             // when object set up back pointer
             $this->parent = $_parent;

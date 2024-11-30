@@ -19,8 +19,8 @@
 
 class Universe {
 	private static $currentUniverse = NULL;
-	private static $emulatedUniverse = NULL;
-	private static $availableUniverses = array();
+	private static ?string $emulatedUniverse = NULL;
+	private static array $availableUniverses = [];
 
 	/**
 	 * Return the current universe id.
@@ -38,7 +38,7 @@ class Universe {
 		return self::$currentUniverse;
 	}
 
-	static public function add($universe)
+	static public function add($universe): void
 	{
 		self::$availableUniverses[]	= $universe;
 	}
@@ -61,7 +61,7 @@ class Universe {
 		return self::$emulatedUniverse;
 	}
 	
-	static public function setEmulated($universeId)
+	static public function setEmulated(string $universeId): bool
 	{
 		if(!self::exists($universeId))
 		{
@@ -116,7 +116,7 @@ class Universe {
 			{
 				if(UNIS_WILDCAST)
 				{
-					$temp = explode('.', $_SERVER['HTTP_HOST']);
+					$temp = explode('.', (string) $_SERVER['HTTP_HOST']);
 					$temp = substr($temp[0], 3);
 					if(is_numeric($temp))
 					{
@@ -175,7 +175,7 @@ class Universe {
 	 * @return array
 	 */
 
-	static public function availableUniverses()
+	static public function availableUniverses(): array
 	{
 		return self::$availableUniverses;
 	}
@@ -188,7 +188,7 @@ class Universe {
 	 * @return int
 	 */
 
-	static public function exists($universeId)
+	static public function exists($universeId): bool
 	{
 		return in_array($universeId, self::availableUniverses());
 	}

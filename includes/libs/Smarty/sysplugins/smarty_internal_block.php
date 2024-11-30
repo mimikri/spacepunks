@@ -10,13 +10,6 @@
 class Smarty_Internal_Block
 {
     /**
-     * Block name
-     *
-     * @var string
-     */
-    public $name = '';
-
-    /**
      * Hide attribute
      *
      * @var bool
@@ -59,13 +52,6 @@ class Smarty_Internal_Block
     public $parent = null;
 
     /**
-     * Inheritance Template index
-     *
-     * @var int
-     */
-    public $tplIndex = 0;
-
-    /**
      * Smarty_Internal_Block constructor.
      * - if outer level {block} of child template ($state === 1) save it as child root block
      * - otherwise process inheritance and render
@@ -73,10 +59,17 @@ class Smarty_Internal_Block
      * @param string   $name     block name
      * @param int|null $tplIndex index of outer level {block} if nested
      */
-    public function __construct($name, $tplIndex)
+    public function __construct(
+        /**
+         * Block name
+         */
+        public $name,
+        /**
+         * Inheritance Template index
+         */
+        public $tplIndex
+    )
     {
-        $this->name = $name;
-        $this->tplIndex = $tplIndex;
     }
 
     /**

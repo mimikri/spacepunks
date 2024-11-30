@@ -20,10 +20,8 @@ class Smarty_Internal_Method_LoadFilter
 
     /**
      * Valid filter types
-     *
-     * @var array
      */
-    private $filterTypes = array('pre' => true, 'post' => true, 'output' => true, 'variable' => true);
+    private array $filterTypes = ['pre' => true, 'post' => true, 'output' => true, 'variable' => true];
 
     /**
      * load a filter of specified type and name
@@ -39,7 +37,7 @@ class Smarty_Internal_Method_LoadFilter
      * @return bool
      * @throws SmartyException if filter could not be loaded
      */
-    public function loadFilter(Smarty_Internal_TemplateBase $obj, $type, $name)
+    public function loadFilter(Smarty_Internal_TemplateBase $obj, $type, $name): bool
     {
         $smarty = $obj->_getSmartyObj();
         $this->_checkFilterType($type);
@@ -51,7 +49,7 @@ class Smarty_Internal_Method_LoadFilter
         }
         if ($smarty->loadPlugin($_plugin)) {
             if (class_exists($_plugin, false)) {
-                $_plugin = array($_plugin, 'execute');
+                $_plugin = [$_plugin, 'execute'];
             }
             if (is_callable($_plugin)) {
                 $smarty->registered_filters[ $type ][ $_filter_name ] = $_plugin;
@@ -68,7 +66,7 @@ class Smarty_Internal_Method_LoadFilter
      *
      * @throws \SmartyException
      */
-    public function _checkFilterType($type)
+    public function _checkFilterType($type): void
     {
         if (!isset($this->filterTypes[ $type ])) {
             throw new SmartyException("Illegal filter type '{$type}'");

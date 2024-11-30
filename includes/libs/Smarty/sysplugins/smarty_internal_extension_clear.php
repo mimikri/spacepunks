@@ -22,7 +22,7 @@ class Smarty_Internal_Extension_Clear
      *
      * @return integer number of cache files deleted
      */
-    public static function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
+    public static function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time): int
     {
         $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
         $_compile_id = isset($compile_id) ? preg_replace('![^\w]+!', '_', $compile_id) : null;
@@ -63,7 +63,7 @@ class Smarty_Internal_Extension_Clear
             $_cacheDirs = new RecursiveDirectoryIterator($_dir);
             $_cache = new RecursiveIteratorIterator($_cacheDirs, RecursiveIteratorIterator::CHILD_FIRST);
             foreach ($_cache as $_file) {
-                if (substr(basename($_file->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false) {
+                if (str_starts_with(basename((string) $_file->getPathname()), '.') || str_contains((string) $_file, '.svn')) {
                     continue;
                 }
                 // directory ?

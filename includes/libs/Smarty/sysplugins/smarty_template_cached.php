@@ -70,7 +70,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
      *
      * @var array
      */
-    public $hashes = array();
+    public $hashes = [];
 
     /**
      * Flag if this is a cache resource
@@ -122,7 +122,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
      *
      * @throws \Exception
      */
-    public function render(Smarty_Internal_Template $_template, $no_output_filter = true)
+    public function render(Smarty_Internal_Template $_template, $no_output_filter = true): void
     {
         if ($this->isCached($_template)) {
             if ($_template->smarty->debugging) {
@@ -228,7 +228,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
      * @param Smarty_Internal_Template $_template template object
      * @param bool                     $update    flag if called because cache update
      */
-    public function process(Smarty_Internal_Template $_template, $update = false)
+    public function process(Smarty_Internal_Template $_template, $update = false): void
     {
         if ($this->handler->process($_template, $this, $update) === false) {
             $this->valid = false;

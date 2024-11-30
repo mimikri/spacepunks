@@ -26,7 +26,7 @@ class Smarty_Internal_Resource_Eval extends Smarty_Resource_Recompiled
      *
      * @return void
      */
-    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
+    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null): void
     {
         $source->uid = $source->filepath = sha1($source->name);
         $source->timestamp = $source->exists = true;
@@ -75,9 +75,9 @@ class Smarty_Internal_Resource_Eval extends Smarty_Resource_Recompiled
      *
      * @return string unique resource name
      */
-    public function buildUniqueResourceName(Smarty $smarty, $resource_name, $isConfig = false)
+    public function buildUniqueResourceName(Smarty $smarty, $resource_name, $isConfig = false): string
     {
-        return get_class($this) . '#' . $this->decode($resource_name);
+        return static::class . '#' . $this->decode($resource_name);
     }
 
     /**
@@ -87,7 +87,7 @@ class Smarty_Internal_Resource_Eval extends Smarty_Resource_Recompiled
      *
      * @return string                 resource's basename
      */
-    public function getBasename(Smarty_Template_Source $source)
+    public function getBasename(Smarty_Template_Source $source): string
     {
         return '';
     }

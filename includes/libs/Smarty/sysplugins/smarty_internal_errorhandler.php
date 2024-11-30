@@ -28,7 +28,7 @@ class Smarty_Internal_ErrorHandler
     /**
      * Enable error handler to intercept errors
      */
-    public function activate() {
+    public function activate(): void {
         /*
             Error muting is done because some people implemented custom error_handlers using
             https://php.net/set_error_handler and for some reason did not understand the following paragraph:
@@ -40,13 +40,13 @@ class Smarty_Internal_ErrorHandler
             Of particular note is that this value will be 0 if the statement that caused the error was
             prepended by the @ error-control operator.
         */
-        $this->previousErrorHandler = set_error_handler([$this, 'handleError']);
+        $this->previousErrorHandler = set_error_handler($this->handleError(...));
     }
 
     /**
      * Disable error handler
      */
-    public function deactivate() {
+    public function deactivate(): void {
         restore_error_handler();
         $this->previousErrorHandler = null;
     }
@@ -72,7 +72,7 @@ class Smarty_Internal_ErrorHandler
 
         if ($this->allowUndefinedArrayKeys && preg_match(
             '/^(Undefined array key|Trying to access array offset on value of type null)/',
-            $errstr
+            (string) $errstr
         )) {
             return; // suppresses this error
         }

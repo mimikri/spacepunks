@@ -27,9 +27,9 @@ class ShowScreensPage extends AbstractLoginPage
 		parent::__construct();
 	}
 	
-	function show() 
+	function show(): void 
 	{
-		$screenshots	= array();
+		$screenshots	= [];
 		$directoryIterator = new DirectoryIterator('styles/resource/images/login/screens/');
         foreach ($directoryIterator as $fileInfo)
 		{
@@ -45,15 +45,10 @@ class ShowScreensPage extends AbstractLoginPage
 				$thumbnail = 'styles/resource/images/login/screens/thumbnails/'.$fileInfo->getFilename();
 			}
 			
-			$screenshots[]	= array(
-				'path' 		=> 'styles/resource/images/login/screens/'.$fileInfo->getFilename(),
-				'thumbnail' => $thumbnail,
-			);
+			$screenshots[]	= ['path' 		=> 'styles/resource/images/login/screens/'.$fileInfo->getFilename(), 'thumbnail' => $thumbnail];
 		}
 		
-		$this->assign(array(
-			'screenshots' => $screenshots
-		));
+		$this->assign(['screenshots' => $screenshots]);
 
 		$this->display('page.screens.default.tpl');
 	}

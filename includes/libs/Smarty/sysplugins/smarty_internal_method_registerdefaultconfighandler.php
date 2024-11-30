@@ -29,7 +29,7 @@ class Smarty_Internal_Method_RegisterDefaultConfigHandler
      * @return \Smarty|\Smarty_Internal_Template
      * @throws SmartyException              if $callback is not callable
      */
-    public function registerDefaultConfigHandler(Smarty_Internal_TemplateBase $obj, $callback)
+    public function registerDefaultConfigHandler(Smarty_Internal_TemplateBase $obj, $callback): Smarty_Internal_TemplateBase
     {
         $smarty = $obj->_getSmartyObj();
         if (is_callable($callback)) {

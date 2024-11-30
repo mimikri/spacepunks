@@ -30,7 +30,7 @@ class Smarty_Internal_Method_UnregisterPlugin
      *
      * @return \Smarty|\Smarty_Internal_Template
      */
-    public function unregisterPlugin(Smarty_Internal_TemplateBase $obj, $type, $name)
+    public function unregisterPlugin(Smarty_Internal_TemplateBase $obj, $type, $name): Smarty_Internal_TemplateBase
     {
         $smarty = $obj->_getSmartyObj();
         if (isset($smarty->registered_plugins[ $type ][ $name ])) {

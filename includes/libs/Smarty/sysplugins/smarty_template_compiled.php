@@ -25,7 +25,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      *
      * @return Smarty_Template_Compiled compiled object
      */
-    public static function load($_template)
+    public static function load($_template): \Smarty_Template_Compiled
     {
         $compiled = new Smarty_Template_Compiled();
         if ($_template->source->handler->hasCompiledHandler) {
@@ -41,7 +41,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      *
      * @param Smarty_Internal_Template $_template template object
      **/
-    public function populateCompiledFilepath(Smarty_Internal_Template $_template)
+    public function populateCompiledFilepath(Smarty_Internal_Template $_template): void
     {
         $source = &$_template->source;
         $smarty = &$_template->smarty;
@@ -88,7 +88,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      * @return string
      * @throws Exception
      */
-    public function render(Smarty_Internal_Template $_template)
+    public function render(Smarty_Internal_Template $_template): void
     {
         // checks if template exists
         if (!$_template->source->exists) {
@@ -128,7 +128,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      *
      * @throws Exception
      */
-    public function process(Smarty_Internal_Template $_smarty_tpl)
+    public function process(Smarty_Internal_Template $_smarty_tpl): void
     {
         $source = &$_smarty_tpl->source;
         $smarty = &$_smarty_tpl->smarty;
@@ -166,10 +166,10 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      *
      * @throws Exception
      */
-    public function compileTemplateSource(Smarty_Internal_Template $_template)
+    public function compileTemplateSource(Smarty_Internal_Template $_template): void
     {
-        $this->file_dependency = array();
-        $this->includes = array();
+        $this->file_dependency = [];
+        $this->includes = [];
         $this->nocache_hash = null;
         $this->unifunc = null;
         // compile locking
@@ -203,7 +203,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      * @return bool success
      * @throws \SmartyException
      */
-    public function write(Smarty_Internal_Template $_template, $code)
+    public function write(Smarty_Internal_Template $_template, $code): bool
     {
         if (!$_template->source->handler->recompiled) {
             if ($_template->smarty->ext->_writeFile->writeFile($this->filepath, $code, $_template->smarty) === true) {
@@ -230,7 +230,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         if (!$_template->source->handler->recompiled) {
             return file_get_contents($this->filepath);
         }
-        return isset($this->content) ? $this->content : false;
+        return $this->content ?? false;
     }
 
     /**
@@ -239,7 +239,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      *
      * @param \Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
      */
-    private function loadCompiledTemplate(Smarty_Internal_Template $_smarty_tpl)
+    private function loadCompiledTemplate(Smarty_Internal_Template $_smarty_tpl): void
     {
         if (function_exists('opcache_invalidate')
             && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)

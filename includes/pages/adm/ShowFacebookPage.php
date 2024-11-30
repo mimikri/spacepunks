@@ -17,9 +17,9 @@
  * @link https://github.com/mimikri/spacepunks
  */
 
-if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
+if (!allowedTo(str_replace([__DIR__, '\\', '/', '.php'], '', __FILE__))) throw new Exception("Permission error!");
 
-function ShowFacebookPage() {
+function ShowFacebookPage(): void {
 
 	global $LNG;
 
@@ -32,11 +32,7 @@ function ShowFacebookPage() {
 		$fb_skey 	= HTTP::_GP('fb_skey', '');
 
 
-		foreach(array(
-					'fb_on'		=> $fb_on,
-					'fb_apikey'	=> $fb_apikey,
-					'fb_skey'	=> $fb_skey
-		) as $key => $value) {
+		foreach(['fb_on'		=> $fb_on, 'fb_apikey'	=> $fb_apikey, 'fb_skey'	=> $fb_skey] as $key => $value) {
 			$config->$key	= $value;
 		}
 		
@@ -44,18 +40,6 @@ function ShowFacebookPage() {
 	}
 	
 	$template	= new template();
-	$template->assign_vars(array(
-		'se_save_parameters'	=> $LNG['se_save_parameters'],
-		'fb_info'				=> $LNG['fb_info'],
-		'fb_secrectkey'			=> $LNG['fb_secrectkey'],
-		'fb_api_key'			=> $LNG['fb_api_key'],
-		'fb_active'				=> $LNG['fb_active'],
-		'fb_settings'			=> $LNG['fb_settings'],
-		'fb_on'					=> $config->fb_on,
-		'fb_apikey'				=> $config->fb_apikey,
-		'fb_skey'				=> $config->fb_skey,
-		'fb_curl'				=> function_exists('curl_init') ? 1 : 0,
-		'fb_curl_info'			=> function_exists('curl_init') ? $LNG['fb_curl_yes'] : $LNG['fb_curl_no'],
-	));
+	$template->assign_vars(['se_save_parameters'	=> $LNG['se_save_parameters'], 'fb_info'				=> $LNG['fb_info'], 'fb_secrectkey'			=> $LNG['fb_secrectkey'], 'fb_api_key'			=> $LNG['fb_api_key'], 'fb_active'				=> $LNG['fb_active'], 'fb_settings'			=> $LNG['fb_settings'], 'fb_on'					=> $config->fb_on, 'fb_apikey'				=> $config->fb_apikey, 'fb_skey'				=> $config->fb_skey, 'fb_curl'				=> function_exists('curl_init') ? 1 : 0, 'fb_curl_info'			=> function_exists('curl_init') ? $LNG['fb_curl_yes'] : $LNG['fb_curl_no']]);
 	$template->show('FacebookPage.tpl');
 }

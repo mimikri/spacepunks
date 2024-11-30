@@ -45,7 +45,7 @@ class Smarty_Internal_Method_GetTemplateVars
                 return null;
             }
         } else {
-            $_result = array();
+            $_result = [];
             if ($_ptr === null) {
                 $_ptr = $data;
             }
@@ -112,7 +112,7 @@ class Smarty_Internal_Method_GetTemplateVars
         }
         if ($errorEnable && $data->_getSmartyObj()->error_unassigned) {
             // force a notice
-            $x = $$varName;
+            $x = ${$varName};
         }
         return new Smarty_Undefined_Variable;
     }

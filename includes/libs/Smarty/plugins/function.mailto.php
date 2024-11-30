@@ -74,16 +74,16 @@ function smarty_function_mailto($params)
             case 'bcc':
             case 'followupto':
                 if (!empty($value)) {
-                    $mail_parms[] = $var . '=' . str_replace(['%40', '%2C'], ['@', ','], rawurlencode($value));
+                    $mail_parms[] = $var . '=' . str_replace(['%40', '%2C'], ['@', ','], rawurlencode((string) $value));
                 }
                 break;
             case 'subject':
             case 'newsgroups':
-                $mail_parms[] = $var . '=' . rawurlencode($value);
+                $mail_parms[] = $var . '=' . rawurlencode((string) $value);
                 break;
             case 'extra':
             case 'text':
-                $$var = $value;
+                ${$var} = $value;
             // no break
             default:
         }
@@ -101,8 +101,8 @@ function smarty_function_mailto($params)
         return;
     }
 
-    $string = '<a href="mailto:' . htmlspecialchars($address, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, Smarty::$_CHARSET) .
-        '" ' . $extra . '>' . htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, Smarty::$_CHARSET) . '</a>';
+    $string = '<a href="mailto:' . htmlspecialchars((string) $address, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, Smarty::$_CHARSET) .
+        '" ' . $extra . '>' . htmlspecialchars((string) $text, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, Smarty::$_CHARSET) . '</a>';
 
     if ($encode === 'javascript') {
         $js_encode = '';
@@ -116,22 +116,22 @@ function smarty_function_mailto($params)
         }
         return '<script type="text/javascript">document.write(String.fromCharCode(' . implode(',', $ord) . '))</script>';
     } elseif ($encode === 'hex') {
-        preg_match('!^(.*)(\?.*)$!', $address, $match);
+        preg_match('!^(.*)(\?.*)$!', (string) $address, $match);
         if (!empty($match[ 2 ])) {
             trigger_error("mailto: hex encoding does not work with extra attributes. Try javascript.", E_USER_WARNING);
             return;
         }
         $address_encode = '';
-        for ($x = 0, $_length = strlen($address); $x < $_length; $x++) {
-            if (preg_match('!\w!' . Smarty::$_UTF8_MODIFIER, $address[ $x ])) {
-                $address_encode .= '%' . bin2hex($address[ $x ]);
+        for ($x = 0, $_length = strlen((string) $address); $x < $_length; $x++) {
+            if (preg_match('!\w!' . Smarty::$_UTF8_MODIFIER, (string) $address[ $x ])) {
+                $address_encode .= '%' . bin2hex((string) $address[ $x ]);
             } else {
                 $address_encode .= $address[ $x ];
             }
         }
         $text_encode = '';
-        for ($x = 0, $_length = strlen($text); $x < $_length; $x++) {
-            $text_encode .= '&#x' . bin2hex($text[ $x ]) . ';';
+        for ($x = 0, $_length = strlen((string) $text); $x < $_length; $x++) {
+            $text_encode .= '&#x' . bin2hex((string) $text[ $x ]) . ';';
         }
         $mailto = "&#109;&#97;&#105;&#108;&#116;&#111;&#58;";
         return '<a href="' . $mailto . $address_encode . '" ' . $extra . '>' . $text_encode . '</a>';

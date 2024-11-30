@@ -22,7 +22,7 @@
  *
  * @return string
  */
-function smarty_modifier_regex_replace($string, $search, $replace, $limit = -1)
+function smarty_modifier_regex_replace($string, $search, $replace, $limit = -1): ?string
 {
     if (is_array($search)) {
         foreach ($search as $idx => $s) {
@@ -48,7 +48,7 @@ function _smarty_regex_replace_check($search)
         $search = substr($search, 0, $pos);
     }
     // remove eval-modifier from $search
-    if (preg_match('!([a-zA-Z\s]+)$!s', $search, $match) && (strpos($match[ 1 ], 'e') !== false)) {
+    if (preg_match('!([a-zA-Z\s]+)$!s', $search, $match) && (str_contains($match[ 1 ], 'e'))) {
         $search = substr($search, 0, -strlen($match[ 1 ])) . preg_replace('![e\s]+!', '', $match[ 1 ]);
     }
     return $search;

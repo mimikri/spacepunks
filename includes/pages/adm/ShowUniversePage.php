@@ -22,7 +22,7 @@ if ($USER['authlevel'] != AUTH_ADM || $_GET['sid'] != session_id())
 	throw new Exception("Permission error!");
 }
 
-function ShowUniversePage() {
+function ShowUniversePage(): void {
 	global $LNG, $USER;
 	$template	= new template();
 	
@@ -90,7 +90,7 @@ function ShowUniversePage() {
 				if(count(Universe::availableUniverses()) == 2)
 				{
 					// Hack The Session
-					setcookie(session_name(), session_id(), SESSION_LIFETIME, HTTP_BASE, NULL, HTTPS, true);
+					setcookie(session_name(), session_id(), ['expires' => SESSION_LIFETIME, 'path' => HTTP_BASE, 'domain' => '', 'secure' => HTTPS, 'httponly' => true]);
 					HTTP::redirectTo("../admin.php?reload=r");
 				}
 			}
@@ -112,11 +112,7 @@ function ShowUniversePage() {
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (compatible; spacepunks/".Config::get()->VERSION."; +https://2moons.de)");
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-				"Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-				"Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3",
-				"Accept-Language: de-DE,de;q=0.8,en-US;q=0.6,en;q=0.4",
-			));
+			curl_setopt($ch, CURLOPT_HTTPHEADER, ["Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3", "Accept-Language: de-DE,de;q=0.8,en-US;q=0.6,en;q=0.4"]);
 			curl_exec($ch);
 			$httpCode	= curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			
@@ -125,13 +121,11 @@ function ShowUniversePage() {
 			{
 				$template = new template();
 				$template->message(str_replace(
-					array(
-						'{NGINX-CODE}'
-					), 
-					array(
-						#'rewrite '.HTTP_ROOT.'uni[0-9]+/?(.*)?$ '.HTTP_ROOT.'$2 break;'
-						'rewrite /(.*)/?uni[0-9]+/?(.*) /$1/$2 break;'
-					),
+					['{NGINX-CODE}'], 
+					[
+         #'rewrite '.HTTP_ROOT.'uni[0-9]+/?(.*)?$ '.HTTP_ROOT.'$2 break;'
+         'rewrite /(.*)/?uni[0-9]+/?(.*) /$1/$2 break;',
+     ],
 					$LNG->getTemplate('createUniverseInfo')
 				)
 				.'<a href="javascript:window.history.back();"><button>'.$LNG['uvs_back'].'</button></a>'
@@ -141,7 +135,7 @@ function ShowUniversePage() {
 
 			$config	= Config::get();
 			
-			$configSQL	= array();
+			$configSQL	= [];
 			foreach(Config::getGlobalConfigKeys() as $basicConfigKey)
 			{
 				$configSQL[]	= '`'.$basicConfigKey.'` = "'.$config->$basicConfigKey.'"';
@@ -156,19 +150,19 @@ function ShowUniversePage() {
 
 			Config::reload();
 
-			list($userID, $planetID) = PlayerUtil::createPlayer($newUniverse, $USER['username'], '', $USER['email'], $USER['lang'], 1, 1, 1, NULL, AUTH_ADM);
+			[$userID, $planetID] = PlayerUtil::createPlayer($newUniverse, $USER['username'], '', $USER['email'], $USER['lang'], 1, 1, 1, NULL, AUTH_ADM);
 			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET password = '".$USER['password']."' WHERE id = ".$userID.";");
 
 			if($universeCount === 1)
 			{
 				// Hack The Session
-				setcookie(session_name(), session_id(), SESSION_LIFETIME, HTTP_ROOT.'uni'.$USER['universe'].'/', NULL, HTTPS, true);
+				setcookie(session_name(), session_id(), ['expires' => SESSION_LIFETIME, 'path' => HTTP_ROOT.'uni'.$USER['universe'].'/', 'domain' => '', 'secure' => HTTPS, 'httponly' => true]);
 				HTTP::redirectTo("uni".$USER['universe']."/admin.php?reload=r");
 			}
 		break;
 	}
 	
-	$uniList	= array();
+	$uniList	= [];
 	
 	$uniResult	= $GLOBALS['DATABASE']->query("SELECT uni, users_amount, game_disable, energySpeed, halt_speed, resource_multiplier, fleet_speed, game_speed, uni_name, COUNT(DISTINCT inac.id) as inactive, COUNT(planet.id) as planet
 	FROM ".CONFIG." conf
@@ -181,10 +175,7 @@ function ShowUniversePage() {
 		$uniList[$uniRow['uni']]	= $uniRow;
 	}
 	
-	$template->assign_vars(array(
-		'uniList'	=> $uniList,
-		'SID'		=> session_id(),
-	));
+	$template->assign_vars(['uniList'	=> $uniList, 'SID'		=> session_id()]);
 	
 	$template->show('UniversePage.tpl');
 }

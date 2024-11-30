@@ -21,21 +21,17 @@ require 'includes/libs/facebook/facebook.php';
 
 class FacebookAuth implements externalAuth
 {
-	private $fbObj = NULL;
+	private ?\Facebook $fbObj = NULL;
 
 	public function __construct()
 	{	
 		if($this->isActiveMode())
 		{
-			$this->fbObj	= new Facebook(array(
-				'appId'  => Config::get()->fb_apikey,
-				'secret' => Config::get()->fb_skey,
-				'cookie' => true,
-			));
+			$this->fbObj	= new Facebook(['appId'  => Config::get()->fb_apikey, 'secret' => Config::get()->fb_skey, 'cookie' => true]);
 		}
 	}
 
-	public function isActiveMode()
+	public function isActiveMode(): bool
 	{
 		return Config::get()->fb_on == 1;
 	}
@@ -52,10 +48,7 @@ class FacebookAuth implements externalAuth
 			HTTP::redirectTo('index.php');
 		}
 		
-		HTTP::sendHeader('Location', $this->fbObj->getLoginUrl(array(
-			'scope'			=> 'public_profile,email',
-			'redirect_uri'	=> HTTP_PATH.'index.php?page=externalAuth&method=facebook'
-		)));
+		HTTP::sendHeader('Location', $this->fbObj->getLoginUrl(['scope'			=> 'public_profile,email', 'redirect_uri'	=> HTTP_PATH.'index.php?page=externalAuth&method=facebook']));
 		exit;
 	}
 
@@ -64,7 +57,7 @@ class FacebookAuth implements externalAuth
 		return $this->fbObj->getUser();
 	}
 
-	public function register()
+	public function register(): void
 	{
 		$uid	= $this->getAccount();
 		
@@ -73,10 +66,7 @@ class FacebookAuth implements externalAuth
 		$sql	= 'SELECT validationID, validationKey FROM %%USERS_VALID%%
 		WHERE universe = :universe AND email = :email;';
 
-		$registerData	= Database::get()->selectSingle($sql, array(
-			':universe'	=> Universe::current(),
-			':email'	=> $me['email']
-		));
+		$registerData	= Database::get()->selectSingle($sql, [':universe'	=> Universe::current(), ':email'	=> $me['email']]);
 
 		if(!empty($registerData))
 		{
@@ -91,11 +81,7 @@ class FacebookAuth implements externalAuth
 		account = :accountId
 		mode = :mode;';
 
-		Database::get()->insert($sql, array(
-			':email'		=> $me['email'],
-			':accountId'	=> $uid,
-			':mode'			=> 'facebook',
-		));
+		Database::get()->insert($sql, [':email'		=> $me['email'], ':accountId'	=> $uid, ':mode'			=> 'facebook']);
 	}
 
 	public function getLoginData()
@@ -107,21 +93,13 @@ class FacebookAuth implements externalAuth
 		INNER JOIN %%USERS%% user ON auth.id = user.id AND user.universe = :universe
 		WHERE auth.account = :accountId AND mode = :mode;';
 
-		return Database::get()->selectSingle($sql, array(
-			':mode'			=> 'facebook',
-			':accountId'	=> $uid,
-			':universe'		=> Universe::current()
-		));
+		return Database::get()->selectSingle($sql, [':mode'			=> 'facebook', ':accountId'	=> $uid, ':universe'		=> Universe::current()]);
 	}
 
-	public function getAccountData()
+	public function getAccountData(): array
 	{
-		$data	= $this->fbObj->api('/me', array('access_token' => $this->fbObj->getAccessToken()));
+		$data	= $this->fbObj->api('/me', ['access_token' => $this->fbObj->getAccessToken()]);
 		
-		return array(
-			'id'		=> $data['id'],
-			'name'		=> $data['name'],
-			'locale'	=> $data['locale']
-		);
+		return ['id'		=> $data['id'], 'name'		=> $data['name'], 'locale'	=> $data['locale']];
 	}
 }

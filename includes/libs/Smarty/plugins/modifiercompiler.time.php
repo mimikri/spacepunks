@@ -17,7 +17,7 @@
  * @return string with compiled code
  */
 
-function smarty_modifiercompiler_time($params, $compiler)
+function smarty_modifiercompiler_time(array $params, $compiler): string
 {
 	return 'pretty_time(' . $params[0] . ')';
 }

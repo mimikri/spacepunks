@@ -25,7 +25,7 @@ class Smarty_Internal_Runtime_WriteFile
      * @throws SmartyException
      * @return boolean true
      */
-    public function writeFile($_filepath, $_contents, Smarty $smarty)
+    public function writeFile($_filepath, $_contents, Smarty $smarty): bool
     {
         $_error_reporting = error_reporting();
         error_reporting($_error_reporting & ~E_NOTICE & ~E_WARNING);
@@ -48,7 +48,7 @@ class Smarty_Internal_Runtime_WriteFile
             }
         }
         // write to tmp file, then move to overt file lock race condition
-        $_tmp_file = $_dirpath . DIRECTORY_SEPARATOR . str_replace(array('.', ','), '_', uniqid('wrt', true));
+        $_tmp_file = $_dirpath . DIRECTORY_SEPARATOR . str_replace(['.', ','], '_', uniqid('wrt', true));
         if (!file_put_contents($_tmp_file, $_contents)) {
             error_reporting($_error_reporting);
             throw new SmartyException("unable to write file {$_tmp_file}");

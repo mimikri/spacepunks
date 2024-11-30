@@ -21,7 +21,7 @@
  *
  * @return string with compiled code
  */
-function smarty_modifiercompiler_strip($params)
+function smarty_modifiercompiler_strip($params): string
 {
     if (!isset($params[ 1 ])) {
         $params[ 1 ] = "' '";

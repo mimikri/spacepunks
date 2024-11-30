@@ -35,7 +35,7 @@ class Smarty_Internal_ParseTree_Code extends Smarty_Internal_ParseTree
      *
      * @return string content
      */
-    public function to_smarty_php(Smarty_Internal_Templateparser $parser)
+    public function to_smarty_php(Smarty_Internal_Templateparser $parser): string
     {
         return sprintf('(%s)', $this->data);
     }

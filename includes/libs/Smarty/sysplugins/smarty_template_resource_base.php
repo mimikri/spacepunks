@@ -63,7 +63,7 @@ abstract class Smarty_Template_Resource_Base
      *
      * @var array
      */
-    public $file_dependency = array();
+    public $file_dependency = [];
 
     /**
      * Content buffer
@@ -79,7 +79,7 @@ abstract class Smarty_Template_Resource_Base
      *
      * @var int[]
      */
-    public $includes = array();
+    public $includes = [];
 
     /**
      * Flag if this is a cache resource
@@ -103,7 +103,7 @@ abstract class Smarty_Template_Resource_Base
      *
      * @throws \Exception
      */
-    public function getRenderedTemplateCode(Smarty_Internal_Template $_template, $unifunc = null)
+    public function getRenderedTemplateCode(Smarty_Internal_Template $_template, $unifunc = null): void
     {
         $smarty = &$_template->smarty;
         $_template->isRenderingCache = $this->isCache;

@@ -20,7 +20,7 @@
  * @return string with compiled code
  * @throws \SmartyException
  */
-function smarty_modifiercompiler_wordwrap($params, Smarty_Internal_TemplateCompilerBase $compiler)
+function smarty_modifiercompiler_wordwrap($params, Smarty_Internal_TemplateCompilerBase $compiler): string
 {
     if (!isset($params[ 1 ])) {
         $params[ 1 ] = 80;

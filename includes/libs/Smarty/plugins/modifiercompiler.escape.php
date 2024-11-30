@@ -20,15 +20,10 @@
  * @return string with compiled code
  * @throws SmartyException
  */
-function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompilerBase $compiler)
+function smarty_modifiercompiler_escape(array $params, Smarty_Internal_TemplateCompilerBase $compiler): string
 {
     $compiler->template->_checkPlugins(
-        array(
-            array(
-                'function' => 'smarty_literal_compiler_param',
-                'file'     => SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php'
-            )
-        )
+        [['function' => 'smarty_literal_compiler_param', 'file'     => SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php']]
     );
     try {
         $esc_type = smarty_literal_compiler_param($params, 1, 'html');
@@ -66,7 +61,7 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
                        $params[ 0 ] .
                        ', array("\\\\" => "\\\\\\\\", "\'" => "\\\\\'", "\"" => "\\\\\"", "\\r" => "\\\\r", "\\n" => "\\\n", "</" => "<\/", "<!--" => "<\!--", "<s" => "<\s", "<S" => "<\S" ))';
         }
-    } catch (SmartyException $e) {
+    } catch (SmartyException) {
         // pass through to regular plugin fallback
     }
     // could not optimize |escape call, so fallback to regular plugin
